@@ -1,0 +1,3070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Designer Portfolio</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23667eea'/%3E%3Ctext x='32' y='42' font-size='32' text-anchor='middle' fill='white' font-family='Arial, sans-serif'%3E🎨%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .portfolio-item {
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .portfolio-item .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            opacity: 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .portfolio-item:hover .project-overlay {
+            opacity: 1;
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .floating-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: floatAround 20s infinite linear;
+        }
+        
+        @keyframes floatAround {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translate(100px, -50px) rotate(90deg) scale(1.1);
+            }
+            50% {
+                transform: translate(-50px, 100px) rotate(180deg) scale(0.9);
+            }
+            75% {
+                transform: translate(-100px, -100px) rotate(270deg) scale(1.05);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg) scale(1);
+            }
+        }
+        
+        .pulse-animation {
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.2;
+                transform: scale(1.1);
+            }
+        }
+
+        .faq-item {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        body {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+
+        .portfolio-item {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #scroll-progress {
+            transition: width 0.1s ease;
+        }
+
+        .like-button.liked {
+            color: #ef4444;
+            transform: scale(1.1);
+        }
+
+        .view-count {
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-stats {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .search-highlight {
+            background-color: yellow;
+            color: black;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        /* Enhanced Mobile Navigation Styles */
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Mobile menu slide animations */
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        #mobile-menu-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Navigation link hover effects */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile nav link animations */
+        .mobile-nav-link {
+            transform: translateX(-20px);
+            opacity: 0;
+            animation: slideInLeft 0.3s ease forwards;
+        }
+
+        .mobile-nav-link:nth-child(1) { animation-delay: 0.1s; }
+        .mobile-nav-link:nth-child(2) { animation-delay: 0.15s; }
+        .mobile-nav-link:nth-child(3) { animation-delay: 0.2s; }
+        .mobile-nav-link:nth-child(4) { animation-delay: 0.25s; }
+        .mobile-nav-link:nth-child(5) { animation-delay: 0.3s; }
+        .mobile-nav-link:nth-child(6) { animation-delay: 0.35s; }
+        .mobile-nav-link:nth-child(7) { animation-delay: 0.4s; }
+
+        @keyframes slideInLeft {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+
+
+        /* Navbar scroll effect */
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Active navigation indicator */
+        .nav-link.active {
+            color: #667eea !important;
+            font-weight: 600;
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Enhanced Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 shadow-sm transition-all duration-300" id="main-nav">
+        <div class="max-w-6xl mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo with animation -->
+                <div class="text-2xl font-bold text-purple-700 cursor-pointer hover:scale-105 transition-transform duration-300" onclick="scrollToSection('home')">
+                    <span class="inline-block animate-pulse">🤵</span> Jahid Hasan
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6 items-center">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-purple-700 transition-all duration-300 relative">Home</a>
+                    <a href="#about" class="nav-link text-gray-700 hover:text-purple-700 transition-all duration-300 relative">About</a>
+                    <a href="#portfolio" class="nav-link text-gray-700 hover:text-purple-700 transition-all duration-300 relative">Portfolio</a>
+                    <a href="#process" class="nav-link text-gray-700 hover:text-purple-700 transition-all duration-300 relative">Process</a>
+                    <a href="#services" class="nav-link text-gray-700 hover:text-purple-700 transition-all duration-300 relative">Services</a>
+                    <a href="#testimonials" class="nav-link text-gray-700 hover:text-purple-700 transition-all duration-300 relative">Testimonials</a>
+                    <a href="#blog" class="nav-link text-gray-700 hover:text-purple-700 transition-all duration-300 relative">Blog</a>
+                    <a href="#contact" class="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition-all duration-300 transform hover:scale-105">Contact</a>
+                </div>
+                
+                <!-- Enhanced Mobile Menu Toggle -->
+                <div class="md:hidden flex items-center">
+                    <!-- Mobile Menu Button with Animation -->
+                    <button id="mobile-menu-toggle" class="relative p-2 rounded-lg bg-gray-100 hover:bg-purple-100 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500" aria-label="Toggle mobile menu">
+                        <div class="hamburger-menu">
+                            <span class="hamburger-line block w-6 h-0.5 bg-gray-700 transition-all duration-300 ease-in-out"></span>
+                            <span class="hamburger-line block w-6 h-0.5 bg-gray-700 mt-1.5 transition-all duration-300 ease-in-out"></span>
+                            <span class="hamburger-line block w-6 h-0.5 bg-gray-700 mt-1.5 transition-all duration-300 ease-in-out"></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Enhanced Mobile Menu Overlay -->
+            <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm opacity-0 invisible transition-all duration-300 md:hidden z-40"></div>
+            
+            <!-- Enhanced Mobile Menu -->
+            <div id="mobile-menu" class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl transform translate-x-full transition-all duration-300 ease-in-out md:hidden z-50">
+                <!-- Mobile Menu Header -->
+                <div class="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-blue-50">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center">
+                            <span class="text-white text-lg">🤵</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">Jahid Hasan</h3>
+                            <p class="text-sm text-gray-600">Creative Designer</p>
+                        </div>
+                    </div>
+                    <button id="mobile-menu-close" class="p-2 rounded-full hover:bg-gray-200 transition-colors duration-300">
+                        <span class="text-xl text-gray-600">✖</span>
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu Content -->
+                <div class="flex flex-col h-full">
+                    <!-- Navigation Links -->
+                    <div class="flex-1 py-6" style="background-color: aliceblue;">
+                        <div class="px-6">
+                            <div class="space-y-1">
+                                <a href="#home" class="mobile-nav-link flex items-center px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 rounded-lg transition-all duration-300 group">
+                                    <span class="text-lg mr-3 group-hover:scale-110 transition-transform duration-300">🏠</span>
+                                    <span class="font-medium">Home</span>
+                                    <span class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
+                                </a>
+                                <a href="#about" class="mobile-nav-link flex items-center px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 rounded-lg transition-all duration-300 group">
+                                    <span class="text-lg mr-3 group-hover:scale-110 transition-transform duration-300">👋</span>
+                                    <span class="font-medium">About Me</span>
+                                    <span class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
+                                </a>
+                                <a href="#portfolio" class="mobile-nav-link flex items-center px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 rounded-lg transition-all duration-300 group">
+                                    <span class="text-lg mr-3 group-hover:scale-110 transition-transform duration-300">💼</span>
+                                    <span class="font-medium">Portfolio</span>
+                                    <span class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
+                                </a>
+                                <a href="#process" class="mobile-nav-link flex items-center px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 rounded-lg transition-all duration-300 group">
+                                    <span class="text-lg mr-3 group-hover:scale-110 transition-transform duration-300">⚙️</span>
+                                    <span class="font-medium">My Process</span>
+                                    <span class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
+                                </a>
+                                <a href="#services" class="mobile-nav-link flex items-center px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 rounded-lg transition-all duration-300 group">
+                                    <span class="text-lg mr-3 group-hover:scale-110 transition-transform duration-300">🛠️</span>
+                                    <span class="font-medium">Services</span>
+                                    <span class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
+                                </a>
+                                <a href="#testimonials" class="mobile-nav-link flex items-center px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 rounded-lg transition-all duration-300 group">
+                                    <span class="text-lg mr-3 group-hover:scale-110 transition-transform duration-300">⭐</span>
+                                    <span class="font-medium">Testimonials</span>
+                                    <span class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
+                                </a>
+                                <a href="#blog" class="mobile-nav-link flex items-center px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 rounded-lg transition-all duration-300 group">
+                                    <span class="text-lg mr-3 group-hover:scale-110 transition-transform duration-300">📝</span>
+                                    <span class="font-medium">Blog</span>
+                                    <span class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Actions -->
+                        <div class="px-6 mb-6">
+                            <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Quick Actions</h4>
+                            <div class="space-y-3">
+                                <button onclick="scrollToSection('contact')" class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
+                                    <span class="mr-2">📝</span>
+                                    Get Started
+                                </button>
+                                <button onclick="window.open('https://wa.me/8801308839759', '_blank')" class="w-full bg-gradient-to-r from-green-400 to-green-600 text-white px-4 py-3 rounded-lg font-semibold hover:from-green-500 hover:to-green-700 transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
+                                    <span class="mr-2">💬</span>
+                                    Live Chat
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="px-6 mb-6">
+                            <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Get In Touch</h4>
+                            <div class="space-y-3">
+                                <a href="mailto:jahidads.pro@gmail.com" class="flex items-center text-gray-600 hover:text-purple-600 transition-colors duration-300">
+                                    <span class="text-lg mr-3">📧</span>
+                                    <span class="text-sm">jahidads.pro@gmail.com</span>
+                                </a>
+                                <a href="tel:+8801308839759" class="flex items-center text-gray-600 hover:text-purple-600 transition-colors duration-300">
+                                    <span class="text-lg mr-3">📱</span>
+                                    <span class="text-sm">+880 13088 39759</span>
+                                </a>
+                                <div class="flex items-center text-gray-600">
+                                    <span class="text-lg mr-3">🕐</span>
+                                    <span class="text-sm">Mon-Fri, 9AM-6PM EST</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="dark bg-gradient-to-b from-purple-800 to-blue-800 min-h-screen flex items-center justify-center text-white relative">
+        <!-- Animated Background Circles (Responsive) -->
+        <div class="absolute inset-0 pointer-events-none z-0">
+            <div class="hidden md:block absolute w-64 h-64 bg-purple-100 rounded-full opacity-50 animate-bounce" style="top: -10%; left: 20%;"></div>
+            <div class="hidden md:block absolute w-32 h-32 bg-blue-100 rounded-full opacity-50 animate-bounce" style="top: 30%; left: 70%;"></div>
+            <div class="hidden md:block absolute w-48 h-48 bg-pink-100 rounded-full opacity-50 animate-bounce" style="top: 60%; left: 40%;"></div>
+            <!-- Mobile circles -->
+            <div class="md:hidden absolute w-32 h-32 bg-purple-100 rounded-full opacity-40 animate-bounce" style="top: 5%; left: 10%;"></div>
+            <div class="md:hidden absolute w-20 h-20 bg-blue-100 rounded-full opacity-40 animate-bounce" style="top: 60%; left: 70%;"></div>
+        </div>
+        <div class="relative z-10 w-full max-w-2xl px-4 py-16 sm:py-24">
+            <div class="w-28 h-28 sm:w-32 sm:h-32 mx-auto mb-8 rounded-full flex items-center justify-center text-6xl">
+                <img src="jahid.jpg" alt="jahid" class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover mx-auto mb-2" />
+            </div>
+            <!-- 3D Marquee Demo -->
+            <div class="relative w-full h-12 sm:h-16 flex items-center justify-center overflow-hidden mb-4">
+                <div class="marquee-3d flex items-center space-x-6 sm:space-x-10 animate-marquee3d">
+                    <span class="flex items-center space-x-2 text-base sm:text-xl md:text-2xl font-bold text-white-600">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Canva_icon_2021.svg" alt="Canva" class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 inline-block"> Canva
+                    </span>
+                    <span class="flex items-center space-x-2 text-base sm:text-xl md:text-2xl font-bold text-white-600">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Photoshop" class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 inline-block"> Photoshop
+                    </span>
+                    <span class="flex items-center space-x-2 text-base sm:text-xl md:text-2xl font-bold text-white-600">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" alt="Illustrator" class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 inline-block"> Illustrator
+                    </span>
+                    <span class="flex items-center space-x-2 text-base sm:text-xl md:text-2xl font-bold text-white-600">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma" class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 inline-block"> Figma
+                    </span>
+                    <span class="flex items-center space-x-2 text-base sm:text-xl md:text-2xl font-bold text-white-600">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c2/Adobe_XD_CC_icon.svg" alt="XD" class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 inline-block"> XD
+                    </span>
+                    <span class="flex items-center space-x-2 text-base sm:text-xl md:text-2xl font-bold text-white-500">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Adobe_InDesign_CC_icon.svg" alt="InDesign" class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 inline-block"> InDesign
+                    </span>
+                    <!-- Repeat for seamless marquee effect -->
+                    <span class="flex items-center space-x-2 text-base sm:text-xl md:text-2xl font-bold text-white-600">
+                        <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/canva-icon.png" alt="Canva" class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 inline-block"> Canva
+                    </span>
+                    <span class="flex items-center space-x-2 text-base sm:text-xl md:text-2xl font-bold text-white-600">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Photoshop" class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 inline-block"> Photoshop
+                    </span>
+                    <span class="flex items-center space-x-2 text-base sm:text-xl md:text-2xl font-bold text-white-600">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" alt="Illustrator" class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 inline-block"> Illustrator
+                    </span>
+                    <span class="flex items-center space-x-2 text-base sm:text-xl md:text-2xl font-bold text-white-600">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma" class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 inline-block"> Figma
+                    </span>
+                    <span class="flex items-center space-x-2 text-base sm:text-xl md:text-2xl font-bold text-white-600">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c2/Adobe_XD_CC_icon.svg" alt="XD" class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 inline-block"> XD
+                    </span>
+                    <span class="flex items-center space-x-2 text-base sm:text-xl md:text-2xl font-bold text-white-600">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Adobe_InDesign_CC_icon.svg" alt="InDesign" class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 inline-block"> InDesign
+                    </span>
+                </div></span>
+            </div>
+            <style>
+                .marquee-3d {
+                    perspective: 600px;
+                    transform-style: preserve-3d;
+                    min-width: 1200px;
+                }
+                .marquee-3d span {
+                    display: inline-block;
+                    padding: 0 1rem;
+                    transform: translateZ(0px) rotateY(0deg);
+                    transition: transform 0.3s;
+                    will-change: transform;
+                    white-space: nowrap;
+                }
+                @keyframes marquee3d {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-50%); }
+                }
+                .animate-marquee3d {
+                    animation: marquee3d 12s linear infinite;
+                }
+                @media (max-width: 1024px) {
+                    .marquee-3d { min-width: 900px; }
+                }
+                @media (max-width: 640px) {
+                    .marquee-3d { min-width: 600px; }
+                    .marquee-3d span {
+                        font-size: 1rem;
+                        padding: 0 0.5rem;
+                    }
+                }
+            </style>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl font-bold mb-6 text-center">Creative Designer</h1>
+            <p class="text-base sm:text-xl md:text-2xl mb-8 max-w-xl mx-auto opacity-90 text-center">
+                Bringing ideas to life through stunning visual designs and creative solutions
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="scrollToSection('portfolio')" 
+                        class="bg-white text-purple-700 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:bg-gray-100 transition-all transform hover:scale-105">
+                    View My Work
+                </button>
+                <button onclick="scrollToSection('contact')" 
+                        class="border-2 border-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:bg-white hover:text-purple-700 transition-all transform hover:scale-105">
+                    Get In Touch
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">About Me</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                    I'm a passionate Canva designer with 5+ years of experience creating compelling visual content 
+                    that helps brands tell their stories and connect with their audiences.
+                </p>
+                <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-purple-600 mb-2 counter" data-target="150">0+</div>
+                        <p class="text-gray-600">Projects Completed</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-purple-600 mb-2 counter" data-target="50">0+</div>
+                        <p class="text-gray-600">Happy Clients</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-purple-600 mb-2 counter" data-target="5">0+</div>
+                        <p class="text-gray-600">Years Experience</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="animate-on-scroll">
+                    <div class="relative bg-gradient-to-br from-pink-100 to-indigo-100 rounded-2xl p-8 h-80 flex items-center justify-center overflow-hidden">
+                        <!-- Video Slide Style -->
+                        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover rounded-2xl opacity-70">
+                            <source src="https://cdn.pixabay.com/video/2024/03/26/205691-927672681_tiny.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="relative z-10 text-center">
+                            <div class="flex justify-center mb-4">
+                                <span class="inline-block bg-white/80 rounded-full p-2 shadow-lg">
+                                    <i class="fas fa-play text-indigo-600 text-2xl"></i>
+                                </span>
+                            </div>
+                            <div class="mt-2 text-indigo-700 font-semibold text-lg tracking-wide">My Creative Workspace</div>
+                            <div class="text-gray-500 text-sm">A snapshot of where ideas come to life</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="animate-on-scroll">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">My Design Philosophy</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        I believe great design should be both beautiful and functional. Every project I work on 
+                        combines aesthetic appeal with strategic thinking to deliver results that exceed expectations.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-purple-500 rounded-full mr-3"></div>
+                            <span class="text-gray-700">Brand Identity & Logo Design</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-purple-500 rounded-full mr-3"></div>
+                            <span class="text-gray-700">Social Media Graphics</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-purple-500 rounded-full mr-3"></div>
+                            <span class="text-gray-700">Marketing Materials</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-purple-500 rounded-full mr-3"></div>
+                            <span class="text-gray-700">Presentation Design</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">My Portfolio</h2>
+                <p class="text-xl text-gray-600">A showcase of my recent design projects</p>
+                
+                <!-- Enhanced Portfolio Stats Dashboard -->
+                <div class="portfolio-stats rounded-3xl p-8 mt-8 mb-8 text-white">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold mb-2" id="total-projects">150+</div>
+                            <div class="text-sm opacity-90">Total Projects</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold mb-2">25+</div>
+                            <div class="text-sm opacity-90">Industries Served</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold mb-2">98%</div>
+                            <div class="text-sm opacity-90">Client Satisfaction</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold mb-2">4.9★</div>
+                            <div class="text-sm opacity-90">Average Rating</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Advanced Portfolio Controls -->
+                <div class="bg-gray-50 rounded-2xl p-6 mb-8">
+                    <!-- Search and Sort Row -->
+                    <div class="flex flex-col md:flex-row gap-4 mb-6">
+                        <div class="flex-1 relative">
+                            <input type="text" id="portfolio-search" placeholder="🔍 Search projects, categories, or tags..." 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                            <button id="clear-search" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600 hidden">✕</button>
+                        </div>
+                        <div class="flex gap-2">
+                            <select id="portfolio-sort" class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <option value="newest">📅 Newest First</option>
+                                <option value="oldest">📅 Oldest First</option>
+                                <option value="popular">🔥 Most Popular</option>
+                                <option value="rating">⭐ Highest Rated</option>
+                                <option value="alphabetical">🔤 A-Z</option>
+                            </select>
+                            <button id="grid-view" class="px-4 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors" title="Grid View">
+                                <span class="text-sm">⊞</span>
+                            </button>
+                            <button id="list-view" class="px-4 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors" title="List View">
+                                <span class="text-sm">☰</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Enhanced Portfolio Filter with Counts -->
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <button class="portfolio-filter active bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 transition-colors text-sm font-medium" data-filter="all">
+                            All Projects <span class="ml-2 bg-white/20 px-2 py-1 rounded-full text-xs" id="count-all">24</span>
+                        </button>
+                        <button class="portfolio-filter bg-gray-200 text-gray-700 px-6 py-3 rounded-full hover:bg-purple-600 hover:text-white transition-colors text-sm font-medium" data-filter="branding">
+                            🎨 Branding <span class="ml-2 bg-gray-300 px-2 py-1 rounded-full text-xs" id="count-branding">8</span>
+                        </button>
+                        <button class="portfolio-filter bg-gray-200 text-gray-700 px-6 py-3 rounded-full hover:bg-purple-600 hover:text-white transition-colors text-sm font-medium" data-filter="social">
+                            📱 Social Media <span class="ml-2 bg-gray-300 px-2 py-1 rounded-full text-xs" id="count-social">6</span>
+                        </button>
+                        <button class="portfolio-filter bg-gray-200 text-gray-700 px-6 py-3 rounded-full hover:bg-purple-600 hover:text-white transition-colors text-sm font-medium" data-filter="presentation">
+                            📊 Presentations <span class="ml-2 bg-gray-300 px-2 py-1 rounded-full text-xs" id="count-presentation">4</span>
+                        </button>
+                        <button class="portfolio-filter bg-gray-200 text-gray-700 px-6 py-3 rounded-full hover:bg-purple-600 hover:text-white transition-colors text-sm font-medium" data-filter="print">
+                            📄 Print Design <span class="ml-2 bg-gray-300 px-2 py-1 rounded-full text-xs" id="count-print">3</span>
+                        </button>
+                        <button class="portfolio-filter bg-gray-200 text-gray-700 px-6 py-3 rounded-full hover:bg-purple-600 hover:text-white transition-colors text-sm font-medium" data-filter="web">
+                            🌐 Web Design <span class="ml-2 bg-gray-300 px-2 py-1 rounded-full text-xs" id="count-web">3</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Results Summary -->
+                    <div class="mt-4 text-center">
+                        <p id="results-summary" class="text-gray-600 text-sm">Showing <span id="visible-count">24</span> of <span id="total-count">24</span> projects</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Portfolio Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+                <!-- Portfolio Item 1 -->
+                <div class="portfolio-item bg-white rounded-2xl overflow-hidden shadow-lg animate-on-scroll" 
+                     data-category="branding" 
+                     data-title="Portfolio Website" 
+                     data-date="2024-01-15" 
+                     data-popularity="95"
+                     data-rating="4.9"
+                     data-tags="logo,identity,startup,tech">
+                    <div class="h-48 bg-gradient-to-br from-pink-400 to-purple-600 justify-center relative">
+                        <img src="portfolio.png" alt="portfolio website" class="absolute inset-0 w-full h-full object-cover rounded-2xl opacity-70" />
+                        <div class="project-overlay">
+                            <div class="flex flex-col items-center space-y-3">
+                                <button class="view-project-btn bg-white text-purple-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+                                    onclick="window.open('https://github.com/jahidads/Portfolio', '_blank')">
+                                    View Details
+                                </button>
+                                <div class="flex space-x-2">
+                                    <button class="preview-btn bg-white/20 text-white px-3 py-2 rounded-lg hover:bg-white/30 transition-colors text-sm"
+                                        onclick="window.open('https://jahidads.github.io/Portfolio/', '_blank')">
+                                        🔍 Preview
+                                    </button>
+                                    <button class="like-btn bg-white/20 text-white px-3 py-2 rounded-lg hover:bg-white/30 transition-colors text-sm">
+                                        ❤️ Like
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Project Status Badges -->
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-purple-500 text-white text-xs px-2 py-1 rounded-full">Featured</span>
+                        </div>
+                        <div class="absolute top-3 right-3">
+                            <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">New</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Portfolio Website Design</h3>
+                            <div class="flex items-center text-yellow-500 text-sm">
+                                <span class="mr-1">⭐</span>
+                                <span class="rating">4.9</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">Complete brand identity package including logo, color palette, and style guide</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex space-x-2">
+                                <span class="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded-full">Logo Design</span>
+                                <span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full">Style Guide</span>
+                            </div>
+                            <span class="text-gray-500 text-sm">Jan 2024</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button class=" text-purple-600 font-semibold hover:text-purple-800 transition-colors"
+                                onclick="scrollToSection('services')">Buy this Service →</button>
+                            <div class="flex items-center space-x-3 text-gray-500 text-sm">
+                                <span class="view-count">👁️ <span class="views">1247</span></span>
+                                <span class="like-count">❤️ <span class="likes">89</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 2 -->
+                <div class="portfolio-item bg-white rounded-2xl overflow-hidden shadow-lg animate-on-scroll" 
+                     data-category="social" 
+                     data-title="Social Media Design" 
+                     data-date="2023-12-20" 
+                     data-popularity="87"
+                     data-rating="4.7"
+                     data-tags="instagram,social,campaign,marketing">
+                    <div class="h-48 bg-gradient-to-br from-green-400 to-blue-600 justify-center relative">
+                        <img src="https://cdn.pixabay.com/photo/2015/10/21/08/22/media-998990_640.jpg" alt="Campaign Design" class="absolute inset-0 w-full h-full object-cover rounded-2xl opacity-70" />
+                        <div class="project-overlay">
+                            <div class="flex flex-col items-center space-y-3">
+                                <button class="view-project-btn bg-white text-purple-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+                                    onclick="window.open('https://github.com/jahidads/Social-Media-Design', '_blank')">
+                                    View Details
+                                </button>
+                                <div class="flex space-x-2">
+                                    <button class="preview-btn bg-white/20 text-white px-3 py-2 rounded-lg hover:bg-white/30 transition-colors text-sm"
+                                        onclick="window.open('https://jahidads.github.io/Social-Media-Design/', '_blank')">
+                                        🔍 Preview
+                                    </button>
+                                    <button class="like-btn bg-white/20 text-white px-3 py-2 rounded-lg hover:bg-white/30 transition-colors text-sm">
+                                        ❤️ Like
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute top-3 right-3">
+                            <span class="bg-orange-500 text-white text-xs px-2 py-1 rounded-full">Trending</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Social Media Campaign Design</h3>
+                            <div class="flex items-center text-yellow-500 text-sm">
+                                <span class="mr-1">⭐</span>
+                                <span class="rating">4.7</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">30-day social media campaign with cohesive visual storytelling</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex space-x-2">
+                                <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full">Social Media</span>
+                                <span class="bg-pink-100 text-pink-700 text-xs px-2 py-1 rounded-full">Campaign</span>
+                            </div>
+                            <span class="text-gray-500 text-sm">Dec 2023</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button class=" text-purple-600 font-semibold hover:text-purple-800 transition-colors"
+                                onclick="scrollToSection('services')">Buy this Service →</button>
+                            <div class="flex items-center space-x-3 text-gray-500 text-sm">
+                                <span class="view-count">👁️ <span class="views">890</span></span>
+                                <span class="like-count">❤️ <span class="likes">67</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 3 -->
+                <div class="portfolio-item bg-white rounded-2xl overflow-hidden shadow-lg animate-on-scroll" 
+                     data-category="presentation" 
+                     data-title="Business Portfolio" 
+                     data-date="2023-11-10" 
+                     data-popularity="92"
+                     data-rating="4.8"
+                     data-tags="pitch,business,presentation,startup">
+                    <div class="h-48 bg-gradient-to-br from-orange-400 to-red-600 justify-center relative">
+                        <img src="business.jpg" alt="Business Pitch Deck" class="absolute inset-0 w-full h-full object-cover rounded-2xl opacity-70" />
+                        <div class="project-overlay">
+                            <div class="flex flex-col items-center space-y-3">
+                                <button class="view-project-btn bg-white text-purple-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+                                    onclick="window.open('https://github.com/jahidads/business-portfolio', '_blank')">
+                                    View Details
+                                </button>
+                                <div class="flex space-x-2">
+                                    <button class="preview-btn bg-white/20 text-white px-3 py-2 rounded-lg hover:bg-white/30 transition-colors text-sm"
+                                        onclick="window.open('https://jahidads.github.io/business-portfolio/', '_blank')">
+                                        🔍 Preview
+                                    </button>
+                                    <button class="like-btn bg-white/20 text-white px-3 py-2 rounded-lg hover:bg-white/30 transition-colors text-sm">
+                                        ❤️ Like
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-pink-500 text-white text-xs px-2 py-1 rounded-full">Award Winner</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Business Pitch Deck</h3>
+                            <div class="flex items-center text-yellow-500 text-sm">
+                                <span class="mr-1">⭐</span>
+                                <span class="rating">4.8</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">Professional presentation design for Series A funding round. All slides are fully editable and customizable.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex space-x-2">
+                                <span class="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded-full">Pitch Deck</span>
+                                <span class="bg-red-100 text-red-700 text-xs px-2 py-1 rounded-full">Business</span>
+                            </div>
+                            <span class="text-gray-500 text-sm">Nov 2023</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button class=" text-purple-600 font-semibold hover:text-purple-800 transition-colors"
+                                onclick="scrollToSection('services')">Buy this Service →</button>
+                            <div class="flex items-center space-x-3 text-gray-500 text-sm">
+                                <span class="view-count">👁️ <span class="views">1534</span></span>
+                                <span class="like-count">❤️ <span class="likes">112</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 4 -->
+                <div class="portfolio-item bg-white rounded-2xl overflow-hidden shadow-lg animate-on-scroll" 
+                     data-category="branding" 
+                     data-title="Conference Event Branding" 
+                     data-date="2023-10-05" 
+                     data-popularity="78"
+                     data-rating="4.6"
+                     data-tags="event,conference,branding,corporate">
+                    <div class="h-48 bg-gradient-to-br from-purple-400 to-pink-600 flex justify-center relative">
+                        <img src="https://cdn.pixabay.com/photo/2017/07/21/23/57/concert-2527495_640.jpg" alt="Conference Event Branding" class="absolute inset-0 w-full h-full object-cover rounded-2xl opacity-70" />
+                        <div class="project-overlay">
+                            <div class="flex flex-col items-center space-y-3">
+                                <button class="view-project-btn bg-white text-purple-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+                                    onclick="window.open('https://github.com/jahidads/BrandCraft', '_blank')">
+                                    View Details
+                                </button>
+                                <div class="flex space-x-2">
+                                    <button class="preview-btn bg-white/20 text-white px-3 py-2 rounded-lg hover:bg-white/30 transition-colors text-sm"
+                                        onclick="window.open('https://jahidads.github.io/BrandCraft/', '_blank')">
+                                        🔍 Preview
+                                    </button>
+                                    <button class="like-btn bg-white/20 text-white px-3 py-2 rounded-lg hover:bg-white/30 transition-colors text-sm">
+                                        ❤️ Like
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Conference Event Branding</h3>
+                            <div class="flex items-center text-yellow-500 text-sm">
+                                <span class="mr-1">⭐</span>
+                                <span class="rating">4.6</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">Complete event branding including banners, badges, and signage</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex space-x-2">
+                                <span class="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded-full">Event Design</span>
+                                <span class="bg-pink-100 text-pink-700 text-xs px-2 py-1 rounded-full">Corporate</span>
+                            </div>
+                            <span class="text-gray-500 text-sm">Oct 2023</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button class=" text-purple-600 font-semibold hover:text-purple-800 transition-colors"
+                                onclick="scrollToSection('services')">Buy this Service →</button>
+                            <div class="flex items-center space-x-3 text-gray-500 text-sm">
+                                <span class="view-count">👁️ <span class="views">645</span></span>
+                                <span class="like-count">❤️ <span class="likes">43</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 5 -->
+                <div class="portfolio-item bg-white rounded-2xl overflow-hidden shadow-lg animate-on-scroll" 
+                     data-category="print" 
+                     data-title="Presentation Layout Design" 
+                     data-date="2023-09-15" 
+                     data-popularity="84"
+                     data-rating="4.7"
+                     data-tags="magazine,layout,print,editorial">
+                    <div class="h-48 bg-gradient-to-br from-blue-400 to-indigo-600 justify-center relative">
+                        <img src="https://cdn.pixabay.com/photo/2015/05/28/14/53/ux-788002_640.jpg" alt="Presentation Layout Design" class="absolute inset-0 w-full h-full object-cover rounded-2xl opacity-70" />
+                        <div class="project-overlay">
+                            <div class="flex flex-col items-center space-y-3">
+                                <button class="view-project-btn bg-white text-purple-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+                                    onclick="window.open('https://github.com/jahidads/PresentPro', '_blank')">
+                                    View Details
+                                </button>
+                                <div class="flex space-x-2">
+                                    <button class="preview-btn bg-white/20 text-white px-3 py-2 rounded-lg hover:bg-white/30 transition-colors text-sm"
+                                        onclick="window.open('https://jahidads.github.io/PresentPro/', '_blank')">
+                                        🔍 Preview
+                                    </button>
+                                    <button class="like-btn bg-white/20 text-white px-3 py-2 rounded-lg hover:bg-white/30 transition-colors text-sm">
+                                        ❤️ Like
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute top-3 right-3">
+                            <span class="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">Popular</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Presentation Layout Design</h3>
+                            <div class="flex items-center text-yellow-500 text-sm">
+                                <span class="mr-1">⭐</span>
+                                <span class="rating">4.7</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">Editorial design for quarterly business magazine</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex space-x-2">
+                                <span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full">Editorial</span>
+                                <span class="bg-indigo-100 text-indigo-700 text-xs px-2 py-1 rounded-full">Layout</span>
+                            </div>
+                            <span class="text-gray-500 text-sm">Sep 2023</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button class=" text-purple-600 font-semibold hover:text-purple-800 transition-colors"
+                                onclick="scrollToSection('services')">Buy this Service →</button>
+                            <div class="flex items-center space-x-3 text-gray-500 text-sm">
+                                <span class="view-count">👁️ <span class="views">723</span></span>
+                                <span class="like-count">❤️ <span class="likes">58</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 6 -->
+                <div class="portfolio-item bg-white rounded-2xl overflow-hidden shadow-lg animate-on-scroll" 
+                     data-category="social" 
+                     data-title="E-commerce Product Catalog" 
+                     data-date="2023-08-20" 
+                     data-popularity="91"
+                     data-rating="4.8"
+                     data-tags="ecommerce,catalog,product,social">
+                    <div class="h-48 bg-gradient-to-br from-teal-400 to-green-600 justify-center relative">
+                        <img src="https://cdn.pixabay.com/photo/2015/11/08/23/54/girl-1034421_640.jpg" alt="E-commerce Product Catalog" class="absolute inset-0 w-full h-full object-cover rounded-2xl opacity-70" />
+                        <div class="project-overlay">
+                            <div class="flex flex-col items-center space-y-3">
+                                <button class="view-project-btn bg-white text-purple-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+                                    onclick="window.open('https://github.com/jahidads/BookHub', '_blank')">
+                                    View Details
+                                </button>
+                                <div class="flex space-x-2">
+                                    <button class="preview-btn bg-white/20 text-white px-3 py-2 rounded-lg hover:bg-white/30 transition-colors text-sm"
+                                        onclick="window.open('https://jahidads.github.io/BookHub/', '_blank')">
+                                        🔍 Preview
+                                    </button>
+                                    <button class="like-btn bg-white/20 text-white px-3 py-2 rounded-lg hover:bg-white/30 transition-colors text-sm">
+                                        ❤️ Like
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-black text-white text-xs px-2 py-1 rounded-full">Client Favorite</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">E-commerce Product Catalog</h3>
+                            <div class="flex items-center text-yellow-500 text-sm">
+                                <span class="mr-1">⭐</span>
+                                <span class="rating">4.8</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">Digital catalog design for fashion</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex space-x-2">
+                                <span class="bg-teal-100 text-teal-700 text-xs px-2 py-1 rounded-full">E-commerce</span>
+                                <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full">Fashion</span>
+                            </div>
+                            <span class="text-gray-500 text-sm">Aug 2023</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button class=" text-purple-600 font-semibold hover:text-purple-800 transition-colors"
+                                onclick="scrollToSection('services')">Buy this Service →</button>
+                            <div class="flex items-center space-x-3 text-gray-500 text-sm">
+                                <span class="view-count">👁️ <span class="views">1156</span></span>
+                                <span class="like-count">❤️ <span class="likes">87</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Load More Button -->
+                <div class="col-span-full text-center mt-8" id="load-more-section">
+                    <button id="load-more-portfolio" class="bg-purple-600 text-white px-8 py-4 rounded-full hover:bg-purple-700 transition-all transform hover:scale-105 font-semibold">
+                        <span class="load-text">Load More Projects</span>
+                        <span class="loading-text hidden">Loading...</span>
+                    </button>
+                    <p class="text-gray-500 text-sm mt-3" id="load-more-info">Showing 6 of 24 projects</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">My Services</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Professional design solutions tailored to help your brand stand out and connect with your audience
+                </p>
+            </div>
+            
+            <!-- Services Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <!-- Brand Identity Service -->
+                <div class="service-card bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 animate-on-scroll">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6">
+                        <span class="text-2xl text-white">🎨</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Brand Identity</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Complete brand identity packages including logo design, color palettes, typography, and comprehensive style guides.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
+                            Logo Design & Variations
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
+                            Brand Style Guide
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
+                            Color Palette & Typography
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
+                            Business Card Design
+                        </li>
+                    </ul>
+                    <div class="border-t border-gray-100 pt-6">
+                        <div class="text-3xl font-bold text-purple-600 mb-2">$120</div>
+                        <p class="text-gray-500 text-sm mb-4">Starting price • 2-3 weeks delivery</p>
+                        <button class="service-btn w-full bg-purple-600 text-white py-3 px-6 rounded-lg hover:bg-purple-700 transition-colors font-semibold"
+                            onclick="window.open('https://jahidads.github.io/EasyPay/', '_blank')">
+                            Get Quote
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Social Media Design Service -->
+                <div class="service-card bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 animate-on-scroll">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-6">
+                        <span class="text-2xl text-white">📱</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Social Media Design</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Eye-catching social media graphics and templates that boost engagement and maintain brand consistency across platforms.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                            Instagram Post Templates
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                            Story Highlights & Covers
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                            Facebook & LinkedIn Graphics
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                            Animated Stories & Posts
+                        </li>
+                    </ul>
+                    <div class="border-t border-gray-100 pt-6">
+                        <div class="text-3xl font-bold text-blue-600 mb-2">$4</div>
+                        <p class="text-gray-500 text-sm mb-4">Per package • 1 week delivery</p>
+                        <button class="service-btn w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                            onclick="window.open('https://jahidads.github.io/EasyPay/', '_blank')">
+                            Get Quote
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Presentation Design Service -->
+                <div class="service-card bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 animate-on-scroll">
+                    <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-500 rounded-2xl flex items-center justify-center mb-6">
+                        <span class="text-2xl text-white">📊</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Presentation Design</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Professional presentation designs that captivate audiences and effectively communicate your message with visual impact.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            Pitch Deck Design
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            Corporate Presentations
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            Infographic Slides
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            Template Creation
+                        </li>
+                    </ul>
+                    <div class="border-t border-gray-100 pt-6">
+                        <div class="text-3xl font-bold text-green-600 mb-2">$65</div>
+                        <p class="text-gray-500 text-sm mb-4">Per presentation • 1-2 weeks delivery</p>
+                        <button class="service-btn w-full bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition-colors font-semibold"
+                            onclick="window.open('https://jahidads.github.io/EasyPay/', '_blank')">
+                            Get Quote
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Print Design Service -->
+                <div class="service-card bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 animate-on-scroll">
+                    <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mb-6">
+                        <span class="text-2xl text-white">📄</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Print Design</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        High-quality print materials that make a lasting impression, from business cards to large format displays.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+                            Brochures & Flyers
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+                            Magazine Layouts
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+                            Poster & Banner Design
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+                            Packaging Design
+                        </li>
+                    </ul>
+                    <div class="border-t border-gray-100 pt-6">
+                        <div class="text-3xl font-bold text-orange-600 mb-2">$35</div>
+                        <p class="text-gray-500 text-sm mb-4">Per project • 1 week delivery</p>
+                        <button class="service-btn w-full bg-orange-600 text-white py-3 px-6 rounded-lg hover:bg-orange-700 transition-colors font-semibold"
+                            onclick="window.open('https://jahidads.github.io/EasyPay/', '_blank')">
+                            Get Quote
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Web Design Service -->
+                <div class="service-card bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 animate-on-scroll">
+                    <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center mb-6">
+                        <span class="text-2xl text-white">🌐</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Web Design</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Modern, responsive web designs that provide exceptional user experiences and drive conversions.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-indigo-500 rounded-full mr-3"></span>
+                            Landing Page Design
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-indigo-500 rounded-full mr-3"></span>
+                            Website Mockups
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-indigo-500 rounded-full mr-3"></span>
+                            UI/UX Design
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-indigo-500 rounded-full mr-3"></span>
+                            Mobile Responsive Design
+                        </li>
+                    </ul>
+                    <div class="border-t border-gray-100 pt-6">
+                        <div class="text-3xl font-bold text-indigo-600 mb-2">$85</div>
+                        <p class="text-gray-500 text-sm mb-4">Per page • 2 weeks delivery</p>
+                        <button class="service-btn w-full bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors font-semibold"
+                            onclick="window.open('https://jahidads.github.io/EasyPay/', '_blank')">
+                            Get Quote
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Design Consultation Service -->
+                <div class="service-card bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 animate-on-scroll">
+                    <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl flex items-center justify-center mb-6">
+                        <span class="text-2xl text-white">💡</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Design Consultation</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Strategic design guidance and expert advice to help you make informed decisions about your visual brand.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-pink-500 rounded-full mr-3"></span>
+                            Brand Strategy Session
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-pink-500 rounded-full mr-3"></span>
+                            Design Audit & Review
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-pink-500 rounded-full mr-3"></span>
+                            Creative Direction
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-2 h-2 bg-pink-500 rounded-full mr-3"></span>
+                            Project Planning
+                        </li>
+                    </ul>
+                    <div class="border-t border-gray-100 pt-6">
+                        <div class="text-3xl font-bold text-pink-600 mb-2">$15</div>
+                        <p class="text-gray-500 text-sm mb-4">Per hour • Same day booking</p>
+                        <button class="service-btn w-full bg-pink-600 text-white py-3 px-6 rounded-lg hover:bg-pink-700 transition-colors font-semibold"
+                            onclick="window.open('https://jahidads.github.io/EasyPay/', '_blank')">
+                            Get Quote
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service Guarantees -->
+            <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-3xl p-8 mb-16 animate-on-scroll">
+                <h3 class="text-2xl font-bold text-gray-800 text-center mb-8">Why Choose My Services?</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl text-white">⚡</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">Fast Turnaround</h4>
+                        <p class="text-gray-600">Quick delivery without compromising on quality. Most projects completed within 1-2 weeks.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl text-white">🔄</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">Unlimited Revisions</h4>
+                        <p class="text-gray-600">I work with you until you're 100% satisfied with the final design. Your happiness is guaranteed.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl text-white">✨</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">100% Original</h4>
+                        <p class="text-gray-600">Every design is created from scratch, tailored specifically for your brand and requirements.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="text-center animate-on-scroll">
+                <h3 class="text-3xl font-bold text-gray-800 mb-4">Ready to Start Your Project?</h3>
+                <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                    Let's discuss your design needs and create something amazing together. Get in touch for a free consultation!
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="window.open('https://m.me/jahidads1', '_blank')"
+                            class="bg-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-purple-700 transition-all transform hover:scale-105">
+                        Get Free Quote
+                    </button>
+                    <button onclick="scrollToSection('contact')" class="border-2 border-purple-600 text-purple-600 px-8 py-4 rounded-full font-semibold hover:bg-purple-700 hover:text-white transition-all transform hover:scale-105">
+                        Schedule Consultation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="py-20 bg-gradient-to-r from-purple-50 to-blue-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">My Design Process</h2>
+                <p class="text-xl text-gray-600">How I bring your vision to life</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center animate-on-scroll">
+                    <div class="w-20 h-20 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">1</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Discovery</h3>
+                    <p class="text-gray-600">Understanding your brand, goals, and target audience through detailed consultation</p>
+                </div>
+                
+                <div class="text-center animate-on-scroll">
+                    <div class="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">2</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Concept</h3>
+                    <p class="text-gray-600">Creating initial concepts and mood boards based on your requirements</p>
+                </div>
+                
+                <div class="text-center animate-on-scroll">
+                    <div class="w-20 h-20 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">3</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Design</h3>
+                    <p class="text-gray-600">Developing the final designs with attention to every detail and your feedback</p>
+                </div>
+                
+                <div class="text-center animate-on-scroll">
+                    <div class="w-20 h-20 bg-orange-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">4</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Delivery</h3>
+                    <p class="text-gray-600">Final files delivered in all required formats with ongoing support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Design Insights</h2>
+                <p class="text-xl text-gray-600">Latest thoughts on design trends and best practices</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <article class="blog-card bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-300 animate-on-scroll">
+                    <div class="h-48 bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center">
+                        <div class="text-6xl">🎨</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-purple-600 font-semibold mb-2">Design Tips</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">The Psychology of Color in Brand Design</h3>
+                        <p class="text-gray-600 mb-4">How different colors evoke emotions and influence customer behavior in your brand identity.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-500 text-sm">5 min read</span>
+                            <button class="read-more-btn text-purple-600 font-semibold hover:text-purple-800 transition-colors">Read More →</button>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="blog-card bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-300 animate-on-scroll">
+                    <div class="h-48 bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center">
+                        <div class="text-6xl">📱</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-blue-600 font-semibold mb-2">Social Media</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Creating Scroll-Stopping Social Content</h3>
+                        <p class="text-gray-600 mb-4">Essential design principles for social media graphics that capture attention and drive engagement.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-500 text-sm">7 min read</span>
+                            <button class="read-more-btn text-purple-600 font-semibold hover:text-purple-800 transition-colors">Read More →</button>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="blog-card bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-300 animate-on-scroll">
+                    <div class="h-48 bg-gradient-to-br from-green-400 to-teal-500 flex items-center justify-center">
+                        <div class="text-6xl">✨</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-green-600 font-semibold mb-2">Trends</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">2025 [Brand] Design Trends to Watch</h3>
+                        <p class="text-gray-600 mb-4">The latest design trends that are shaping the visual landscape and influencing brand strategies this year and beyond.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-500 text-sm">6 min read</span>
+                            <button class="read-more-btn text-purple-600 font-semibold hover:text-purple-800 transition-colors">Read More →</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">What Clients Say</h2>
+                <p class="text-xl text-gray-600">Hear from some of the amazing clients I've had the pleasure to work with</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl p-8 shadow-lg">
+                <div class="testimonial-carousel relative">
+                    <div class="testimonial-slide active text-center">
+                        <div class="text-yellow-400 text-3xl mb-4">⭐⭐⭐⭐⭐</div>
+                        <p class="text-gray-700 text-lg italic mb-6 max-w-3xl mx-auto leading-relaxed">
+                            "Jahid's attention to detail and creative vision exceeded all our expectations. The new brand identity helped us increase customer engagement by 150%."
+                        </p>
+                        <div class="flex items-center justify-center">
+                            <img src="kafi.jpg" alt="Kafi" class="w-16 h-16 rounded-full object-cover mr-4" />
+                            <div class="text-left">
+                                <div class="text-gray-800 font-bold text-lg">Abdulla Al Kafi</div>
+                                <div class="text-gray-600">CEO, TechStart Inc.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide text-center hidden">
+                        <div class="text-yellow-400 text-3xl mb-4">⭐⭐⭐⭐⭐</div>
+                        <p class="text-gray-700 text-lg italic mb-6 max-w-3xl mx-auto leading-relaxed">
+                            "Professional, creative, and always delivers on time. Sarah is our go-to designer for all marketing materials. Her social media designs have significantly boosted our online presence."
+                        </p>
+                        <div class="flex items-center justify-center">
+                            <img src="mira.webp" alt="Maria" class="w-16 h-16 rounded-full object-cover mr-4" />
+                            <div class="text-left">
+                                <div class="text-gray-800 font-bold text-lg">Maria Rodriguez</div>
+                                <div class="text-gray-600">Marketing Director, Creative Agency</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide text-center hidden">
+                        <div class="text-yellow-400 text-3xl mb-4">⭐⭐⭐⭐⭐</div>
+                        <p class="text-gray-700 text-lg italic mb-6 max-w-3xl mx-auto leading-relaxed">
+                            "The presentation design Sarah created helped us secure our Series A funding. Absolutely incredible work! Her designs tell a story that resonates with investors and customers alike."
+                        </p>
+                        <div class="flex items-center justify-center">
+                            <img src="rahad.jpg" alt="Rahad" class="w-16 h-16 rounded-full object-cover mr-4" />
+                            <div class="text-left">
+                                <div class="text-gray-800 font-bold text-lg">David Rahad</div>
+                                <div class="text-gray-600">Startup Founder, InnovateLab</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-slide text-center hidden">
+                        <div class="text-yellow-400 text-3xl mb-4">⭐⭐⭐⭐⭐</div>
+                        <p class="text-gray-700 text-lg italic mb-6 max-w-3xl mx-auto leading-relaxed">
+                            " His attention to detail and creative vision exceeded all our expectations. The new brand identity helped us increase customer engagement by 150%."
+                        </p>
+                        <div class="flex items-center justify-center">
+                            <img src="Reza.jpg" alt="Reza" class="w-16 h-16 rounded-full object-cover mr-4" />
+                            <div class="text-left">
+                                <div class="text-gray-800 font-bold text-lg">Reza Kobir</div>
+                                <div class="text-gray-600">CEO, Creative Agency</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-slide text-center hidden">
+                        <div class="text-yellow-400 text-3xl mb-4">⭐⭐⭐⭐⭐</div>
+                        <p class="text-gray-700 text-lg italic mb-6 max-w-3xl mx-auto leading-relaxed">
+                            "He is a true professional and an expert in his field. His insights and recommendations were invaluable to our project.Her design skills are top-notch!Created a user-friendly platform."
+                        </p>
+                        <div class="flex items-center justify-center">
+                            <img src="sami.jpg" alt="sami" class="w-16 h-16 rounded-full object-cover mr-4" />
+                            <div class="text-left">
+                                <div class="text-gray-800 font-bold text-lg">Md Sami</div>
+                                <div class="text-gray-600">SEO Specialist on Upwork</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Carousel Controls -->
+                    <div class="flex justify-center mt-8 space-x-3">
+                        <button class="testimonial-dot w-4 h-4 bg-purple-600 rounded-full transition-all hover:scale-110" data-slide="0"></button>
+                        <button class="testimonial-dot w-4 h-4 bg-gray-300 rounded-full transition-all hover:scale-110" data-slide="1"></button>
+                        <button class="testimonial-dot w-4 h-4 bg-gray-300 rounded-full transition-all hover:scale-110" data-slide="2"></button>
+                        <button class="testimonial-dot w-4 h-4 bg-gray-300 rounded-full transition-all hover:scale-110" data-slide="3"></button>
+                        <button class="testimonial-dot w-4 h-4 bg-gray-300 rounded-full transition-all hover:scale-110" data-slide="4"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 gradient-bg text-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="text-4xl font-bold mb-4">Let's Work Together</h2>
+                <p class="text-xl mb-12 opacity-90">
+                    Ready to bring your vision to life? I'd love to hear about your project!
+                </p>
+            </div>
+            
+            <div class="max-w-7xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-20"></div>
+                    <!-- Enhanced Contact Form -->
+                    <div class="animate-on-scroll order-2 lg:order-1">
+                        <div class="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl rounded-3xl p-6 sm:p-8 lg:p-10 xl:p-14 border border-white/20 shadow-2xl">
+                        <form id="contact-form" class="space-y-6">
+                            <!-- Form Header -->
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8 gap-4">
+                                <h3 class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">Send Me a Message</h3>
+                                <div class="flex items-center text-xs sm:text-sm opacity-90 bg-white/10 px-3 sm:px-4 py-2 rounded-full self-start sm:self-auto">
+                                    <div class="w-2 h-2 sm:w-3 sm:h-3 bg-green-400 rounded-full mr-2 animate-pulse shadow-lg shadow-green-400/50"></div>
+                                    <span class="whitespace-nowrap">Usually responds in 2-4 hours</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Form Progress Indicator -->
+                            <div class="mb-6 sm:mb-8">
+                                <div class="flex items-center justify-between text-xs sm:text-sm mb-3">
+                                    <span class="font-medium">Form Progress</span>
+                                    <span id="form-progress-text" class="font-bold">0% Complete</span>
+                                </div>
+                                <div class="w-full bg-white/10 rounded-full h-2 sm:h-3 shadow-inner">
+                                    <div id="form-progress-bar" class="bg-gradient-to-r from-emerald-400 to-cyan-400 h-2 sm:h-3 rounded-full transition-all duration-500 shadow-lg" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <form id="contact-form" class="space-y-6">
+                                <!-- Personal Information Section -->
+                                <div class="form-section bg-white/5 rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 border border-white/10">
+                                    <h4 class="text-lg sm:text-xl font-bold mb-4 sm:mb-6 flex items-center">
+                                        <span class="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-xs sm:text-sm mr-3 sm:mr-4 shadow-lg">1</span>
+                                        <span class="text-base sm:text-xl">Personal Information</span>
+                                    </h4>
+                                    
+                                    <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                                        <div class="form-field">
+                                            <label for="first-name" class="block text-xs sm:text-sm font-medium mb-2">First Name *</label>
+                                            <input type="text" id="first-name" name="first-name" required 
+                                                   class="w-full px-3 sm:px-5 py-3 sm:py-4 xl:py-5 bg-white/10 border border-white/30 rounded-lg sm:rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 focus:bg-white/15 transition-all duration-300 shadow-inner text-sm sm:text-base"
+                                                   placeholder="John">
+                                            <div class="field-feedback text-xs sm:text-sm mt-1 opacity-0 transition-opacity"></div>
+                                        </div>
+                                        
+                                        <div class="form-field">
+                                            <label for="last-name" class="block text-xs sm:text-sm font-medium mb-2">Last Name *</label>
+                                            <input type="text" id="last-name" name="last-name" required 
+                                                   class="w-full px-3 sm:px-5 py-3 sm:py-4 xl:py-5 bg-white/10 border border-white/30 rounded-lg sm:rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 focus:bg-white/15 transition-all duration-300 shadow-inner text-sm sm:text-base"
+                                                   placeholder="Doe">
+                                            <div class="field-feedback text-xs sm:text-sm mt-1 opacity-0 transition-opacity"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                                        <div class="form-field">
+                                            <label for="email" class="block text-xs sm:text-sm font-medium mb-2">Email Address *</label>
+                                            <input type="email" id="email" name="email" required 
+                                                   class="w-full px-3 sm:px-5 py-3 sm:py-4 xl:py-5 bg-white/10 border border-white/30 rounded-lg sm:rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 focus:bg-white/15 transition-all duration-300 shadow-inner text-sm sm:text-base"
+                                                   placeholder="john.doe@example.com">
+                                            <div class="field-feedback text-xs sm:text-sm mt-1 opacity-0 transition-opacity"></div>
+                                        </div>
+                                        
+                                        <div class="form-field">
+                                            <label for="phone" class="block text-xs sm:text-sm font-medium mb-2">Phone Number</label>
+                                            <input type="tel" id="phone" name="phone" 
+                                                   class="w-full px-3 sm:px-5 py-3 sm:py-4 xl:py-5 bg-white/10 border border-white/30 rounded-lg sm:rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 focus:bg-white/15 transition-all duration-300 shadow-inner text-sm sm:text-base"
+                                                   placeholder="+1 (555) 123-4567">
+                                            <div class="field-feedback text-xs sm:text-sm mt-1 opacity-0 transition-opacity"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-field">
+                                        <label for="company" class="block text-xs sm:text-sm font-medium mb-2">Company/Organization</label>
+                                        <input type="text" id="company" name="company" 
+                                               class="w-full px-3 sm:px-5 py-3 sm:py-4 xl:py-5 bg-white/10 border border-white/30 rounded-lg sm:rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 focus:bg-white/15 transition-all duration-300 shadow-inner text-sm sm:text-base"
+                                               placeholder="Your Company Name">
+                                        <div class="field-feedback text-xs sm:text-sm mt-1 opacity-0 transition-opacity"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Project Information Section -->
+                                <div class="form-section bg-white/5 rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 border border-white/10">
+                                    <h4 class="text-lg sm:text-xl font-bold mb-4 sm:mb-6 flex items-center">
+                                        <span class="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center text-xs sm:text-sm mr-3 sm:mr-4 shadow-lg">2</span>
+                                        <span class="text-base sm:text-xl">Project Information</span>
+                                    </h4>
+                                    
+                                    <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                                        <div class="form-field">
+                                            <label for="project-type" class="block text-xs sm:text-sm font-medium mb-2">Project Type *</label>
+                                            <select id="project-type" name="project-type" required 
+                                                    class="w-full px-3 sm:px-5 py-3 sm:py-4 xl:py-5 bg-white/10 border border-white/30 rounded-lg sm:rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 focus:bg-white/15 transition-all duration-300 shadow-inner text-sm sm:text-base">
+                                                <option value="" class="text-gray-800">Select a project type</option>
+                                                <option value="branding" class="text-gray-800">🎨 Brand Identity ($1,200+)</option>
+                                                <option value="social-media" class="text-gray-800">📱 Social Media Design ($450+)</option>
+                                                <option value="presentation" class="text-gray-800">📊 Presentation Design ($650+)</option>
+                                                <option value="print" class="text-gray-800">📄 Print Design ($350+)</option>
+                                                <option value="web" class="text-gray-800">🌐 Web Design ($850+)</option>
+                                                <option value="consultation" class="text-gray-800">💡 Design Consultation ($150/hr)</option>
+                                                <option value="other" class="text-gray-800">✨ Other/Custom Project</option>
+                                            </select>
+                                            <div class="field-feedback text-xs sm:text-sm mt-1 opacity-0 transition-opacity"></div>
+                                        </div>
+                                        
+                                        <div class="form-field">
+                                            <label for="budget" class="block text-xs sm:text-sm font-medium mb-2">Budget Range</label>
+                                            <select id="budget" name="budget" 
+                                                    class="w-full px-3 sm:px-5 py-3 sm:py-4 xl:py-5 bg-white/10 border border-white/30 rounded-lg sm:rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 focus:bg-white/15 transition-all duration-300 shadow-inner text-sm sm:text-base">
+                                                <option value="" class="text-gray-800">Select budget range</option>
+                                                <option value="under-500" class="text-gray-800">Under $500</option>
+                                                <option value="500-1000" class="text-gray-800">$500 - $1,000</option>
+                                                <option value="1000-2500" class="text-gray-800">$1,000 - $2,500</option>
+                                                <option value="2500-5000" class="text-gray-800">$2,500 - $5,000</option>
+                                                <option value="5000-plus" class="text-gray-800">$5,000+</option>
+                                                <option value="discuss" class="text-gray-800">Let's discuss</option>
+                                            </select>
+                                            <div class="field-feedback text-xs sm:text-sm mt-1 opacity-0 transition-opacity"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                                        <div class="form-field">
+                                            <label for="timeline" class="block text-xs sm:text-sm font-medium mb-2">Project Timeline</label>
+                                            <select id="timeline" name="timeline" 
+                                                    class="w-full px-3 sm:px-5 py-3 sm:py-4 xl:py-5 bg-white/10 border border-white/30 rounded-lg sm:rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 focus:bg-white/15 transition-all duration-300 shadow-inner text-sm sm:text-base">
+                                                <option value="" class="text-gray-800">Select timeline</option>
+                                                <option value="asap" class="text-gray-800">🚀 ASAP (Rush job)</option>
+                                                <option value="1-week" class="text-gray-800">⚡ Within 1 week</option>
+                                                <option value="2-weeks" class="text-gray-800">📅 Within 2 weeks</option>
+                                                <option value="1-month" class="text-gray-800">🗓️ Within 1 month</option>
+                                                <option value="flexible" class="text-gray-800">🕐 Flexible timeline</option>
+                                            </select>
+                                            <div class="field-feedback text-xs sm:text-sm mt-1 opacity-0 transition-opacity"></div>
+                                        </div>
+                                        
+                                        <div class="form-field">
+                                            <label for="industry" class="block text-xs sm:text-sm font-medium mb-2">Industry/Sector</label>
+                                            <select id="industry" name="industry" 
+                                                    class="w-full px-3 sm:px-5 py-3 sm:py-4 xl:py-5 bg-white/10 border border-white/30 rounded-lg sm:rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 focus:bg-white/15 transition-all duration-300 shadow-inner text-sm sm:text-base">
+                                                <option value="" class="text-gray-800">Select industry</option>
+                                                <option value="technology" class="text-gray-800">💻 Technology</option>
+                                                <option value="healthcare" class="text-gray-800">🏥 Healthcare</option>
+                                                <option value="finance" class="text-gray-800">💰 Finance</option>
+                                                <option value="education" class="text-gray-800">🎓 Education</option>
+                                                <option value="retail" class="text-gray-800">🛍️ Retail/E-commerce</option>
+                                                <option value="food" class="text-gray-800">🍕 Food & Beverage</option>
+                                                <option value="nonprofit" class="text-gray-800">❤️ Non-profit</option>
+                                                <option value="other" class="text-gray-800">🏢 Other</option>
+                                            </select>
+                                            <div class="field-feedback text-xs sm:text-sm mt-1 opacity-0 transition-opacity"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Project Details Section -->
+                                <div class="form-section bg-white/5 rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 border border-white/10">
+                                    <h4 class="text-lg sm:text-xl font-bold mb-4 sm:mb-6 flex items-center">
+                                        <span class="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center text-xs sm:text-sm mr-3 sm:mr-4 shadow-lg">3</span>
+                                        <span class="text-base sm:text-xl">Project Details</span>
+                                    </h4>
+                                    
+                                    <div class="form-field">
+                                        <label for="message" class="block text-xs sm:text-sm font-medium mb-2">Project Description *</label>
+                                        <textarea id="message" name="message" rows="4" required 
+                                                  class="w-full px-3 sm:px-5 py-3 sm:py-4 xl:py-5 bg-white/10 border border-white/30 rounded-lg sm:rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 focus:bg-white/15 transition-all duration-300 resize-none shadow-inner text-sm sm:text-base"
+                                                  placeholder="Describe your project in detail. Include your goals, target audience, style preferences, and any specific requirements..."></textarea>
+                                        <div class="flex justify-between items-center mt-2">
+                                            <div class="field-feedback text-xs sm:text-sm opacity-0 transition-opacity"></div>
+                                            <div class="text-xs sm:text-sm opacity-60">
+                                                <span id="char-count">0</span>/1000 characters
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-field">
+                                        <label class="block text-xs sm:text-sm font-medium mb-3">Services Needed (Select all that apply)</label>
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+                                            <label class="flex items-center cursor-pointer">
+                                                <input type="checkbox" name="services[]" value="logo-design" class="sr-only service-checkbox">
+                                                <div class="checkbox-custom w-5 h-5 sm:w-6 sm:h-6 bg-white/10 border-2 border-white/30 rounded-lg mr-2 sm:mr-3 flex items-center justify-center transition-all duration-300 shadow-inner hover:bg-white/15">
+                                                    <span class="checkmark hidden text-white text-xs sm:text-sm font-bold">✓</span>
+                                                </div>
+                                                <span class="text-xs sm:text-sm">Logo Design</span>
+                                            </label>
+                                            <label class="flex items-center cursor-pointer">
+                                                <input type="checkbox" name="services[]" value="brand-guidelines" class="sr-only service-checkbox">
+                                                <div class="checkbox-custom w-5 h-5 sm:w-6 sm:h-6 bg-white/10 border-2 border-white/30 rounded-lg mr-2 sm:mr-3 flex items-center justify-center transition-all duration-300 shadow-inner hover:bg-white/15">
+                                                    <span class="checkmark hidden text-white text-xs sm:text-sm font-bold">✓</span>
+                                                </div>
+                                                <span class="text-xs sm:text-sm">Brand Guidelines</span>
+                                            </label>
+                                            <label class="flex items-center cursor-pointer">
+                                                <input type="checkbox" name="services[]" value="social-graphics" class="sr-only service-checkbox">
+                                                <div class="checkbox-custom w-5 h-5 sm:w-6 sm:h-6 bg-white/10 border-2 border-white/30 rounded-lg mr-2 sm:mr-3 flex items-center justify-center transition-all duration-300 shadow-inner hover:bg-white/15">
+                                                    <span class="checkmark hidden text-white text-xs sm:text-sm font-bold">✓</span>
+                                                </div>
+                                                <span class="text-xs sm:text-sm">Social Media Graphics</span>
+                                            </label>
+                                            <label class="flex items-center cursor-pointer">
+                                                <input type="checkbox" name="services[]" value="business-cards" class="sr-only service-checkbox">
+                                                <div class="checkbox-custom w-5 h-5 sm:w-6 sm:h-6 bg-white/10 border-2 border-white/30 rounded-lg mr-2 sm:mr-3 flex items-center justify-center transition-all duration-300 shadow-inner hover:bg-white/15">
+                                                    <span class="checkmark hidden text-white text-xs sm:text-sm font-bold">✓</span>
+                                                </div>
+                                                <span class="text-xs sm:text-sm">Business Cards</span>
+                                            </label>
+                                            <label class="flex items-center cursor-pointer">
+                                                <input type="checkbox" name="services[]" value="presentations" class="sr-only service-checkbox">
+                                                <div class="checkbox-custom w-5 h-5 sm:w-6 sm:h-6 bg-white/10 border-2 border-white/30 rounded-lg mr-2 sm:mr-3 flex items-center justify-center transition-all duration-300 shadow-inner hover:bg-white/15">
+                                                    <span class="checkmark hidden text-white text-xs sm:text-sm font-bold">✓</span>
+                                                </div>
+                                                <span class="text-xs sm:text-sm">Presentations</span>
+                                            </label>
+                                            <label class="flex items-center cursor-pointer">
+                                                <input type="checkbox" name="services[]" value="web-design" class="sr-only service-checkbox">
+                                                <div class="checkbox-custom w-5 h-5 sm:w-6 sm:h-6 bg-white/10 border-2 border-white/30 rounded-lg mr-2 sm:mr-3 flex items-center justify-center transition-all duration-300 shadow-inner hover:bg-white/15">
+                                                    <span class="checkmark hidden text-white text-xs sm:text-sm font-bold">✓</span>
+                                                </div>
+                                                <span class="text-xs sm:text-sm">Web Design</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-field">
+                                        <label for="inspiration" class="block text-xs sm:text-sm font-medium mb-2">Design Inspiration/References</label>
+                                        <textarea id="inspiration" name="inspiration" rows="3" 
+                                                  class="w-full px-3 sm:px-5 py-3 sm:py-4 xl:py-5 bg-white/10 border border-white/30 rounded-lg sm:rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 focus:bg-white/15 transition-all duration-300 resize-none shadow-inner text-sm sm:text-base"
+                                                  placeholder="Share any websites, brands, or design styles you like. Include URLs if possible..."></textarea>
+                                        <div class="field-feedback text-xs sm:text-sm mt-1 opacity-0 transition-opacity"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Communication Preferences -->
+                                <div class="form-section bg-white/5 rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 border border-white/10">
+                                    <h4 class="text-lg sm:text-xl font-bold mb-4 sm:mb-6 flex items-center">
+                                        <span class="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-xs sm:text-sm mr-3 sm:mr-4 shadow-lg">4</span>
+                                        <span class="text-base sm:text-xl">Communication Preferences</span>
+                                    </h4>
+                                    
+                                    <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                                        <div class="form-field">
+                                            <label class="block text-xs sm:text-sm font-medium mb-3">Preferred Contact Method</label>
+                                            <div class="space-y-2">
+                                                <label class="flex items-center cursor-pointer">
+                                                    <input type="radio" name="contact-method" value="email" class="sr-only contact-radio" checked>
+                                                    <div class="radio-custom w-5 h-5 sm:w-6 sm:h-6 bg-white/10 border-2 border-white/30 rounded-full mr-2 sm:mr-3 flex items-center justify-center transition-all duration-300 shadow-inner hover:bg-white/15">
+                                                        <div class="radio-dot w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full opacity-0 transition-opacity duration-300 shadow-lg"></div>
+                                                    </div>
+                                                    <span class="text-xs sm:text-sm">📧 Email</span>
+                                                </label>
+                                                <label class="flex items-center cursor-pointer">
+                                                    <input type="radio" name="contact-method" value="phone" class="sr-only contact-radio">
+                                                    <div class="radio-custom w-5 h-5 sm:w-6 sm:h-6 bg-white/10 border-2 border-white/30 rounded-full mr-2 sm:mr-3 flex items-center justify-center transition-all duration-300 shadow-inner hover:bg-white/15">
+                                                        <div class="radio-dot w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full opacity-0 transition-opacity duration-300 shadow-lg"></div>
+                                                    </div>
+                                                    <span class="text-xs sm:text-sm">📞 Phone Call</span>
+                                                </label>
+                                                <label class="flex items-center cursor-pointer">
+                                                    <input type="radio" name="contact-method" value="video" class="sr-only contact-radio">
+                                                    <div class="radio-custom w-5 h-5 sm:w-6 sm:h-6 bg-white/10 border-2 border-white/30 rounded-full mr-2 sm:mr-3 flex items-center justify-center transition-all duration-300 shadow-inner hover:bg-white/15">
+                                                        <div class="radio-dot w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full opacity-0 transition-opacity duration-300 shadow-lg"></div>
+                                                    </div>
+                                                    <span class="text-xs sm:text-sm">📹 Video Call</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-field">
+                                            <label for="best-time" class="block text-xs sm:text-sm font-medium mb-2">Best Time to Contact</label>
+                                            <select id="best-time" name="best-time" 
+                                                    class="w-full px-3 sm:px-5 py-3 sm:py-4 xl:py-5 bg-white/10 border border-white/30 rounded-lg sm:rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 focus:bg-white/15 transition-all duration-300 shadow-inner text-sm sm:text-base">
+                                                <option value="" class="text-gray-800">Select preferred time</option>
+                                                <option value="morning" class="text-gray-800">🌅 Morning (9AM - 12PM)</option>
+                                                <option value="afternoon" class="text-gray-800">☀️ Afternoon (12PM - 5PM)</option>
+                                                <option value="evening" class="text-gray-800">🌆 Evening (5PM - 8PM)</option>
+                                                <option value="anytime" class="text-gray-800">🕐 Anytime</option>
+                                            </select>
+                                            <div class="field-feedback text-xs sm:text-sm mt-1 opacity-0 transition-opacity"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                    <!-- Agreement and Submit -->
+                    <div class="form-section bg-white/5 rounded-2xl p-6 border border-white/10">
+                        <button type="submit" id="submit-btn"
+                                class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-8 py-5 rounded-2xl font-bold text-lg hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-cyan-400/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-xl">
+                            <span class="submit-text flex items-center justify-center">
+                                <span class="mr-3 text-xl">🚀</span>
+                                Send My Project Request
+                            </span>
+                            <span class="loading-text hidden flex items-center justify-center">
+                                <span class="animate-spin mr-3 text-xl">⏳</span>
+                                Sending Message...
+                            </span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast-message"
+     class="fixed top-5 right-5 bg-green-600 text-white px-5 py-3 rounded-xl shadow-2xl opacity-0 pointer-events-none transition-opacity duration-500 z-50">
+    🎉 Thanks! Your message has been submitted successfully.
+</div>
+
+<script>
+    const form = document.getElementById("contact-form");
+    const submitBtn = document.getElementById("submit-btn");
+    const submitText = submitBtn.querySelector(".submit-text");
+    const loadingText = submitBtn.querySelector(".loading-text");
+    const toast = document.getElementById("toast-message");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Simulate sending
+        submitBtn.disabled = true;
+        submitText.classList.add("hidden");
+        loadingText.classList.remove("hidden");
+
+        setTimeout(() => {
+            // Reset button
+            submitBtn.disabled = false;
+            submitText.classList.remove("hidden");
+            loadingText.classList.add("hidden");
+
+            // Show thanks notification
+            toast.classList.remove("opacity-0", "pointer-events-none");
+            toast.classList.add("opacity-100");
+
+            // Hide after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove("opacity-100");
+                toast.classList.add("opacity-0", "pointer-events-none");
+            }, 3000);
+
+            // Reset form
+            form.reset();
+        }, 2000);
+    });
+</script>
+                    
+                    <!-- Contact Info -->
+                    <div class="flex flex-col items-center justify-center mt-12 sm:mt-16 lg:mt-20 xl:mt-24 px-4">
+                        <h2 class="text-3xl sm:text-4xl font-bold mb-6 text-center">Contact Me</h2>
+                        <div class="animate-on-scroll w-full flex justify-center">
+                            <div class="glass-effect rounded-2xl p-6 sm:p-8 max-w-xl w-full mx-auto">
+                                <h3 class="text-2xl font-bold mb-6 text-center">Get In Touch</h3>
+                                <p class="text-lg opacity-90 mb-8 text-center">
+                                    I'm here to help you with your design needs. Reach out to me through any of the platforms below!
+                                </p>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-2">
+                                            <span class="text-xl">📧</span>
+                                        </div>
+                                        <div class="text-center">
+                                            <h4 class="font-semibold">Email Me</h4>
+                                            <a href="mailto:jahidads.pro@gmail.com" class="opacity-80 break-all text-sm sm:text-base">jahidads.pro@gmail.com</a>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-2">
+                                            <span class="text-xl">💼</span>
+                                        </div>
+                                        <div class="text-center">
+                                            <h4 class="font-semibold">LinkedIn</h4>
+                                            <a href="https://bd.linkedin.com/in/jahidads" class="opacity-80 break-all text-sm sm:text-base">@jahidads</a>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-2">
+                                            <span class="text-xl">📱</span>
+                                        </div>
+                                        <div class="text-center">
+                                            <h4 class="font-semibold">Call Me</h4>
+                                            <a href="tel:+8801308839759" class="opacity-80 break-all text-sm sm:text-base">+880 13088 39759</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-8 pt-6 border-t border-white/20">
+                                    <div class="flex items-center justify-center gap-2">
+                                        <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                                        <span class="opacity-90 text-sm">Available for new projects</span>
+                                    </div>
+                                    <div class="flex items-center justify-center gap-2 mt-4">
+                                        <div class="w-3 h-3 bg-red-400 rounded-full animate-pulse"></div>
+                                        <span class="opacity-90 text-sm">Not accepting freelance requests</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    </section>
+
+    <!-- Enhanced Footer -->
+    <footer class="bg-gray-900 text-white py-20">
+        <div class="max-w-6xl mx-auto px-4">
+            <!-- Main Footer Content -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Company Info -->
+                <div class="lg:col-span-2">
+                    <div class="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                        Jahid Hasan Design Studio
+                    </div>
+                    <p class="text-gray-400 mb-6 leading-relaxed max-w-md">
+                        Creating stunning visual experiences that help brands connect with their audiences. 
+                        Specializing in modern design solutions that drive results and inspire action.
+                    </p>
+                    
+                    <!-- Social Media Links -->
+                    <div class="flex space-x-4 mb-6">
+                        <a href="https://bd.linkedin.com/in/jahidads" target="_blank" rel="noopener" class="social-link w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-purple-600 transition-all transform hover:scale-110" title="LinkedIn" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in text-lg"></i>
+                        </a>
+                        <a href="https://www.instagram.com/jahidhasan2.0ff/" target="_blank" rel="noopener" class="social-link w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-600 transition-all transform hover:scale-110" title="Instagram" aria-label="Instagram">
+                            <i class="fab fa-instagram text-lg"></i>
+                        </a>
+                        <a href="https://x.com/jahidhasan_tw" target="_blank" rel="noopener" class="social-link w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-all transform hover:scale-110" title="Twitter" aria-label="Twitter">
+                            <i class="fab fa-twitter text-lg"></i>
+                        </a>
+                        <a href="https://www.pinterest.com/Jahidads/" target="_blank" rel="noopener" class="social-link w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transition-all transform hover:scale-110" title="Pinterest" aria-label="Pinterest">
+                            <i class="fab fa-pinterest-p text-lg"></i>
+                        </a>
+                        <a href="https://www.facebook.com/jahidads1" target="_blank" rel="noopener" class="social-link w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-indigo-600 transition-all transform hover:scale-110" title="Facebook" aria-label="Facebook">
+                            <i class="fab fa-facebook-f text-lg"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Newsletter Signup -->
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <h4 class="font-semibold mb-2">📧 Design Newsletter</h4>
+                        <p class="text-gray-400 text-sm mb-3">Get weekly design tips and project updates</p>
+                        <div class="flex">
+                            <input type="email" id="newsletter-email" placeholder="Enter your email" 
+                                   class="flex-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-l-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm">
+                            <button id="newsletter-subscribe" class="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-r-lg transition-colors text-sm font-medium">
+                                Subscribe
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-purple-400">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="https://jahidads.github.io/Portfolio/" class="footer-link text-gray-400 hover:text-white transition-colors flex items-center">
+                            <span class="mr-2">🌐</span> Portfolio
+                        </a></li>
+                        <li><a href="https://jahidads.github.io/CyberShield/" class="footer-link text-gray-400 hover:text-white transition-colors flex items-center">
+                            <span class="mr-2">🛡</span> Cybershield
+                        </a></li>
+                        <li><a href="https://jahidads.github.io/Webinars/" class="footer-link text-gray-400 hover:text-white transition-colors flex items-center">
+                            <span class="mr-2">🎥</span> Webinars
+                        </a></li>
+                        <li><a href="https://jahidads.github.io/Developer-portfolio/" class="footer-link text-gray-400 hover:text-white transition-colors flex items-center">
+                            <span class="mr-2">🛠</span> Developer Portfolio
+                        </a></li>
+                        <li><a href="https://jahidads.github.io/Blog/" class="footer-link text-gray-400 hover:text-white transition-colors flex items-center">
+                            <span class="mr-2">📝</span> Blog
+                        </a></li>
+                        <li><a href="https://jahidads.github.io/PixelPatch/" class="footer-link text-gray-400 hover:text-white transition-colors flex items-center">
+                            <span class="mr-2">🎨</span> Pixelpath
+                        </a></li>
+                    </ul>
+                </div>
+                
+                <!-- Services & Resources -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-purple-400">Services & Resources</h3>
+                    <ul class="space-y-3">
+                        <li><a href="https://jahidads.github.io/BrandCraft/" class="footer-link text-gray-400 hover:text-white transition-colors flex items-center">
+                            <span class="mr-2">🖼</span> Brand Identity
+                        </a></li>
+                        <li><a href="https://jahidads.github.io/Social-Media-Design/" class="footer-link text-gray-400 hover:text-white transition-colors flex items-center">
+                            <span class="mr-2">📱</span> Social Media Design
+                        </a></li>
+                        <li><a href="https://jahidads.github.io/PresentPro/" class="footer-link text-gray-400 hover:text-white transition-colors flex items-center">
+                            <span class="mr-2">📊</span> Presentation Design
+                        </a></li>
+                        <li><a href="https://jahidads.github.io/PixelPatch/" class="footer-link text-gray-400 hover:text-white transition-colors flex items-center">
+                            <span class="mr-2">📄</span> Pixel Design
+                        </a></li>
+                        <li><a href="https://jahidads.github.io/Webinars/" class="footer-link text-gray-400 hover:text-white transition-colors flex items-center">
+                            <span class="mr-2">💡</span> Design Consultation
+                        </a></li>
+                        <li><a href="https://pixabay.com/users/jahidads-50320354/" class="footer-link text-gray-400 hover:text-white transition-colors flex items-center">
+                            <span class="mr-2">📚</span> Design Resources
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <p class="text-gray-500 text-sm">
+                            © 2025 Jahid Design Studio. All rights reserved.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-wrap justify-center md:justify-end space-x-6 mb-4 md:mb-0">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Cookie Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Sitemap</a>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center text-green-400 text-sm">
+                            <div class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
+                            Available for projects
+                        </div>
+                        <button id="back-to-top" class="bg-purple-600 hover:bg-purple-700 text-white p-2 rounded-full transition-all transform hover:scale-110" title="Back to top">
+                            <span class="text-sm">↑</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Utility function for smooth scrolling
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.ceil(current) + '+';
+                        setTimeout(updateCounter, 20);
+                    } else {
+                        counter.textContent = target + '+';
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+
+        // Trigger counter animation when about section is visible
+        const aboutSection = document.querySelector('#about');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        if (aboutSection) {
+            counterObserver.observe(aboutSection);
+        }
+
+        // Enhanced Mobile Menu Functionality
+        let mobileMenuOpen = false;
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            const body = document.body;
+
+            mobileMenuOpen = !mobileMenuOpen;
+
+            if (mobileMenuOpen) {
+                // Open menu
+                mobileMenu.classList.add('open');
+                mobileMenuOverlay.classList.add('open');
+                hamburgerMenu.classList.add('active');
+                body.style.overflow = 'hidden'; // Prevent background scrolling
+                
+                // Add staggered animation to menu items
+                const menuLinks = document.querySelectorAll('.mobile-nav-link');
+                menuLinks.forEach((link, index) => {
+                    link.style.animationDelay = `${0.1 + (index * 0.05)}s`;
+                });
+            } else {
+                // Close menu
+                closeMobileMenu();
+            }
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            const body = document.body;
+
+            mobileMenu.classList.remove('open');
+            mobileMenuOverlay.classList.remove('open');
+            hamburgerMenu.classList.remove('active');
+            body.style.overflow = ''; // Restore scrolling
+            mobileMenuOpen = false;
+        }
+
+        // Mobile menu toggle button
+        document.getElementById('mobile-menu-toggle').addEventListener('click', toggleMobileMenu);
+
+        // Mobile menu close button
+        document.getElementById('mobile-menu-close').addEventListener('click', closeMobileMenu);
+
+        // Close menu when clicking overlay
+        document.getElementById('mobile-menu-overlay').addEventListener('click', closeMobileMenu);
+
+        // Close menu when clicking navigation links
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                closeMobileMenu();
+                
+                // Add a small delay before scrolling to allow menu to close
+                setTimeout(() => {
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }, 300);
+            });
+        });
+
+
+
+        // Enhanced navigation scroll effects
+        function updateNavOnScroll() {
+            const nav = document.getElementById('main-nav');
+            const scrollTop = window.pageYOffset;
+            
+            // Add scrolled class when scrolling down
+            if (scrollTop > 100) {
+                nav.classList.add('nav-scrolled');
+            } else {
+                nav.classList.remove('nav-scrolled');
+            }
+            
+            // Update active navigation link based on scroll position
+            const sections = ['home', 'about', 'portfolio', 'process', 'services', 'testimonials', 'blog', 'contact'];
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let currentSection = '';
+            
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    const sectionTop = section.offsetTop - 150;
+                    const sectionBottom = sectionTop + section.offsetHeight;
+                    
+                    if (scrollTop >= sectionTop && scrollTop < sectionBottom) {
+                        currentSection = sectionId;
+                    }
+                }
+            });
+            
+            // Update active nav link
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateNavOnScroll);
+
+        // Close mobile menu on window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 768 && mobileMenuOpen) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close mobile menu on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mobileMenuOpen) {
+                closeMobileMenu();
+            }
+        });
+
+        // Quick action buttons in mobile menu
+        document.querySelector('#mobile-menu button[onclick*="contact"]').addEventListener('click', function() {
+            closeMobileMenu();
+            setTimeout(() => {
+                scrollToSection('contact');
+            }, 300);
+        });
+
+        // Schedule call button
+        document.querySelector('#mobile-menu button:not([onclick])').addEventListener('click', function() {
+            closeMobileMenu();
+            setTimeout(() => {
+                alert('Opening calendar booking system! This would typically integrate with a scheduling service like Calendly or Acuity Scheduling.');
+            }, 300);
+        });
+
+        // Social media links in mobile menu
+        document.querySelectorAll('#mobile-menu .social-link, #mobile-menu a[href="#"]').forEach(link => {
+            if (link.href === window.location.href + '#' || link.classList.contains('social-link')) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const platform = this.querySelector('span').textContent;
+                    let platformName = '';
+                    
+                    switch(platform) {
+                        case '💼': platformName = 'LinkedIn'; break;
+                        case '📷': platformName = 'Instagram'; break;
+                        case '🐦': platformName = 'Twitter'; break;
+                        case '📌': platformName = 'Pinterest'; break;
+                        default: platformName = 'Social Media';
+                    }
+
+                    alert(`Opening ${platformName} profile! This would typically link to Jahid's ${platformName} account.`);
+                });
+            }
+        });
+
+        // Contact links in mobile menu
+        document.querySelector('a[href="mailto:jahidads.pro@gmail.com"]').addEventListener('click', function(e) {
+            // Allow default email behavior but show confirmation
+            setTimeout(() => {
+                console.log('Opening default email client to send message to Jahid');
+            }, 100);
+        });
+
+        document.querySelector('a[href="tel:+8801308839759"]').addEventListener('click', function(e) {
+            // Allow default phone behavior but show confirmation
+            setTimeout(() => {
+                console.log('Initiating phone call to Jahid');
+            }, 100);
+        });
+
+        // Portfolio functionality
+        let portfolioData = [];
+        let currentFilter = 'all';
+        let currentSort = 'newest';
+        let currentView = 'grid';
+        let searchTerm = '';
+
+        // Initialize portfolio data from DOM
+        function initializePortfolioData() {
+            const items = document.querySelectorAll('.portfolio-item');
+            portfolioData = Array.from(items).map(item => ({
+                element: item,
+                category: item.getAttribute('data-category'),
+                title: item.getAttribute('data-title'),
+                date: item.getAttribute('data-date'),
+                popularity: parseInt(item.getAttribute('data-popularity')),
+                rating: parseFloat(item.getAttribute('data-rating')),
+                tags: item.getAttribute('data-tags').split(','),
+                views: parseInt(item.querySelector('.views').textContent),
+                likes: parseInt(item.querySelector('.likes').textContent)
+            }));
+        }
+
+        // Portfolio filtering
+        function filterPortfolio() {
+            let filteredData = portfolioData;
+
+            // Apply category filter
+            if (currentFilter !== 'all') {
+                filteredData = filteredData.filter(item => item.category === currentFilter);
+            }
+
+            // Apply search filter
+            if (searchTerm) {
+                filteredData = filteredData.filter(item => {
+                    const searchLower = searchTerm.toLowerCase();
+                    return item.title.toLowerCase().includes(searchLower) ||
+                           item.category.toLowerCase().includes(searchLower) ||
+                           item.tags.some(tag => tag.toLowerCase().includes(searchLower));
+                });
+            }
+
+            // Apply sorting
+            filteredData.sort((a, b) => {
+                switch(currentSort) {
+                    case 'newest':
+                        return new Date(b.date) - new Date(a.date);
+                    case 'oldest':
+                        return new Date(a.date) - new Date(b.date);
+                    case 'popular':
+                        return b.popularity - a.popularity;
+                    case 'rating':
+                        return b.rating - a.rating;
+                    case 'alphabetical':
+                        return a.title.localeCompare(b.title);
+                    default:
+                        return 0;
+                }
+            });
+
+            // Update display
+            updatePortfolioDisplay(filteredData);
+            updateResultsSummary(filteredData.length);
+        }
+
+        // Update portfolio display
+        function updatePortfolioDisplay(filteredData) {
+            const portfolioGrid = document.getElementById('portfolio-grid');
+            const loadMoreSection = document.getElementById('load-more-section');
+            
+            // Hide all items first
+            portfolioData.forEach(item => {
+                item.element.style.display = 'none';
+                item.element.style.opacity = '0';
+            });
+
+            // Show filtered items
+            filteredData.forEach((item, index) => {
+                item.element.style.display = 'block';
+                setTimeout(() => {
+                    item.element.style.opacity = '1';
+                    item.element.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+
+            // Update grid layout based on view
+            if (currentView === 'list') {
+                portfolioGrid.className = 'grid grid-cols-1 gap-6';
+            } else {
+                portfolioGrid.className = 'grid md:grid-cols-2 lg:grid-cols-3 gap-8';
+            }
+        }
+
+        // Update results summary
+        function updateResultsSummary(visibleCount) {
+            document.getElementById('visible-count').textContent = visibleCount;
+            document.getElementById('total-count').textContent = portfolioData.length;
+        }
+
+        // Portfolio filter buttons
+        document.querySelectorAll('.portfolio-filter').forEach(button => {
+            button.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+                currentFilter = filter;
+                
+                // Update active button
+                document.querySelectorAll('.portfolio-filter').forEach(btn => {
+                    btn.classList.remove('active', 'bg-purple-600', 'text-white');
+                    btn.classList.add('bg-gray-200', 'text-gray-700');
+                    const counter = btn.querySelector('span');
+                    if (counter) {
+                        counter.classList.remove('bg-white/20');
+                        counter.classList.add('bg-gray-300');
+                    }
+                });
+                
+                this.classList.add('active', 'bg-purple-600', 'text-white');
+                this.classList.remove('bg-gray-200', 'text-gray-700');
+                const activeCounter = this.querySelector('span');
+                if (activeCounter) {
+                    activeCounter.classList.remove('bg-gray-300');
+                    activeCounter.classList.add('bg-white/20');
+                }
+                
+                filterPortfolio();
+            });
+        });
+
+        // Portfolio search
+        document.getElementById('portfolio-search').addEventListener('input', function() {
+            searchTerm = this.value;
+            const clearButton = document.getElementById('clear-search');
+            
+            if (searchTerm) {
+                clearButton.classList.remove('hidden');
+            } else {
+                clearButton.classList.add('hidden');
+            }
+            
+            filterPortfolio();
+        });
+
+        // Clear search
+        document.getElementById('clear-search').addEventListener('click', function() {
+            document.getElementById('portfolio-search').value = '';
+            searchTerm = '';
+            this.classList.add('hidden');
+            filterPortfolio();
+        });
+
+        // Portfolio sorting
+        document.getElementById('portfolio-sort').addEventListener('change', function() {
+            currentSort = this.value;
+            filterPortfolio();
+        });
+
+        // View toggle buttons
+        document.getElementById('grid-view').addEventListener('click', function() {
+            currentView = 'grid';
+            this.classList.add('bg-purple-600', 'text-white');
+            this.classList.remove('bg-gray-200', 'text-gray-700');
+            document.getElementById('list-view').classList.remove('bg-purple-600', 'text-white');
+            document.getElementById('list-view').classList.add('bg-gray-200', 'text-gray-700');
+            filterPortfolio();
+        });
+
+        document.getElementById('list-view').addEventListener('click', function() {
+            currentView = 'list';
+            this.classList.add('bg-purple-600', 'text-white');
+            this.classList.remove('bg-gray-200', 'text-gray-700');
+            document.getElementById('grid-view').classList.remove('bg-purple-600', 'text-white');
+            document.getElementById('grid-view').classList.add('bg-gray-200', 'text-gray-700');
+            filterPortfolio();
+        });
+
+        // Portfolio item interactions
+        document.addEventListener('click', function(e) {
+            // Like button functionality
+            if (e.target.classList.contains('like-btn') || e.target.closest('.like-btn')) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const button = e.target.classList.contains('like-btn') ? e.target : e.target.closest('.like-btn');
+                const portfolioItem = button.closest('.portfolio-item');
+                const likeCountElement = portfolioItem.querySelector('.likes');
+                
+                if (likeCountElement) {
+                    const currentLikes = parseInt(likeCountElement.textContent);
+                    likeCountElement.textContent = currentLikes + 1;
+                    
+                    // Add visual feedback
+                    button.classList.add('liked');
+                    button.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        button.style.transform = 'scale(1)';
+                    }, 200);
+                }
+            }
+            
+            // Preview button functionality
+            if (e.target.classList.contains('preview-btn') || e.target.closest('.preview-btn')) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const button = e.target.classList.contains('preview-btn') ? e.target : e.target.closest('.preview-btn');
+                const portfolioItem = button.closest('.portfolio-item');
+                const projectTitle = portfolioItem.getAttribute('data-title');
+                
+                alert(`✅Completed preview for ▶${projectTitle}◀ click ok button to continue`);
+            }
+            
+            // View project button functionality
+            if (e.target.classList.contains('view-project-btn') || e.target.closest('.view-project-btn')) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const button = e.target.classList.contains('view-project-btn') ? e.target : e.target.closest('.view-project-btn');
+                const portfolioItem = button.closest('.portfolio-item');
+                const projectTitle = portfolioItem.getAttribute('data-title');
+                const viewCountElement = portfolioItem.querySelector('.views');
+                
+                // Increment view count
+                if (viewCountElement) {
+                    const currentViews = parseInt(viewCountElement.textContent);
+                    viewCountElement.textContent = currentViews + 1;
+                }
+                
+                alert(`🎉Thanks for viewing the ▶${projectTitle}◀ project details`);
+            }
+        });
+
+        // Load more functionality
+        document.getElementById('load-more-portfolio').addEventListener('click', function() {
+            const button = this;
+            const loadText = button.querySelector('.load-text');
+            const loadingText = button.querySelector('.loading-text');
+            
+            // Show loading state
+            loadText.classList.add('hidden');
+            loadingText.classList.remove('hidden');
+            button.disabled = true;
+            
+            // Simulate loading more projects
+            setTimeout(() => {
+                alert('This would load more portfolio projects from the server. Currently showing all available projects!');
+                
+                // Reset button
+                loadText.classList.remove('hidden');
+                loadingText.classList.add('hidden');
+                button.disabled = false;
+            }, 1500);
+        });
+
+        // Blog read more buttons
+        document.querySelectorAll('.read-more-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const articleTitle = this.closest('.blog-card').querySelector('h3').textContent;
+                alert(`Opening "${articleTitle}" - This would typically link to the full blog post!`);
+            });
+        });
+
+        // Enhanced Contact Form Functionality
+        let formProgress = 0;
+        const totalFields = 8; // Required fields count
+        
+        // Form progress tracking
+        function updateFormProgress() {
+            const requiredFields = document.querySelectorAll('#contact-form [required]');
+            let filledFields = 0;
+            
+            requiredFields.forEach(field => {
+                if (field.type === 'checkbox') {
+                    if (field.checked) filledFields++;
+                } else if (field.value.trim() !== '') {
+                    filledFields++;
+                }
+            });
+            
+            const progress = Math.round((filledFields / requiredFields.length) * 100);
+            const progressBar = document.getElementById('form-progress-bar');
+            const progressText = document.getElementById('form-progress-text');
+            
+            progressBar.style.width = progress + '%';
+            progressText.textContent = progress + '% Complete';
+            
+            // Change color based on progress
+            if (progress < 30) {
+                progressBar.className = 'bg-red-400 h-2 rounded-full transition-all duration-300';
+            } else if (progress < 70) {
+                progressBar.className = 'bg-yellow-400 h-2 rounded-full transition-all duration-300';
+            } else {
+                progressBar.className = 'bg-green-400 h-2 rounded-full transition-all duration-300';
+            }
+        }
+        
+        // Real-time validation
+        function validateField(field) {
+            const feedback = field.parentElement.querySelector('.field-feedback');
+            let isValid = true;
+            let message = '';
+            
+            if (field.hasAttribute('required') && !field.value.trim()) {
+                isValid = false;
+                message = 'This field is required';
+            } else if (field.type === 'email' && field.value) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(field.value)) {
+                    isValid = false;
+                    message = 'Please enter a valid email address';
+                } else {
+                    message = '✓ Valid email address';
+                }
+            } else if (field.type === 'tel' && field.value) {
+                const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+                if (!phoneRegex.test(field.value.replace(/[\s\-\(\)]/g, ''))) {
+                    isValid = false;
+                    message = 'Please enter a valid phone number';
+                } else {
+                    message = '✓ Valid phone number';
+                }
+            } else if (field.value.trim()) {
+                message = '✓ Looks good';
+            }
+            
+            // Update field styling
+            if (isValid && field.value.trim()) {
+                field.classList.remove('border-red-400');
+                field.classList.add('border-green-400');
+                feedback.className = 'field-feedback text-sm mt-1 opacity-100 transition-opacity text-green-300';
+            } else if (!isValid) {
+                field.classList.remove('border-green-400');
+                field.classList.add('border-red-400');
+                feedback.className = 'field-feedback text-sm mt-1 opacity-100 transition-opacity text-red-300';
+            } else {
+                field.classList.remove('border-red-400', 'border-green-400');
+                feedback.className = 'field-feedback text-sm mt-1 opacity-0 transition-opacity';
+            }
+            
+            feedback.textContent = message;
+            return isValid;
+        }
+        
+        // Character counter for message field
+        document.getElementById('message').addEventListener('input', function() {
+            const charCount = document.getElementById('char-count');
+            const currentLength = this.value.length;
+            const maxLength = 1000;
+            
+            charCount.textContent = currentLength;
+            
+            if (currentLength > maxLength * 0.9) {
+                charCount.parentElement.classList.add('text-yellow-300');
+            } else {
+                charCount.parentElement.classList.remove('text-yellow-300');
+            }
+            
+            if (currentLength >= maxLength) {
+                this.value = this.value.substring(0, maxLength);
+                charCount.textContent = maxLength;
+                charCount.parentElement.classList.add('text-red-300');
+            } else {
+                charCount.parentElement.classList.remove('text-red-300');
+            }
+        });
+        
+        // Custom checkbox and radio styling
+        function setupCustomInputs() {
+            // Checkboxes
+            document.querySelectorAll('.service-checkbox, .agreement-checkbox, .newsletter-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const customBox = this.parentElement.querySelector('.checkbox-custom');
+                    const checkmark = customBox.querySelector('.checkmark');
+                    
+                    if (this.checked) {
+                        customBox.classList.add('bg-white/30', 'border-white');
+                        checkmark.classList.remove('hidden');
+                    } else {
+                        customBox.classList.remove('bg-white/30', 'border-white');
+                        checkmark.classList.add('hidden');
+                    }
+                    
+                    updateFormProgress();
+                });
+            });
+            
+            // Radio buttons
+            document.querySelectorAll('.contact-radio').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    // Reset all radio buttons in the same group
+                    document.querySelectorAll(`input[name="${this.name}"]`).forEach(r => {
+                        const customRadio = r.parentElement.querySelector('.radio-custom');
+                        const dot = customRadio.querySelector('.radio-dot');
+                        customRadio.classList.remove('bg-white/30', 'border-white');
+                        dot.classList.add('opacity-0');
+                    });
+                    
+                    // Set the selected one
+                    if (this.checked) {
+                        const customRadio = this.parentElement.querySelector('.radio-custom');
+                        const dot = customRadio.querySelector('.radio-dot');
+                        customRadio.classList.add('bg-white/30', 'border-white');
+                        dot.classList.remove('opacity-0');
+                    }
+                });
+            });
+        }
+        
+        // Set up form field listeners
+        function setupFormListeners() {
+            const formFields = document.querySelectorAll('#contact-form input, #contact-form select, #contact-form textarea');
+            
+            formFields.forEach(field => {
+                field.addEventListener('blur', function() {
+                    validateField(this);
+                    updateFormProgress();
+                });
+                
+                field.addEventListener('input', function() {
+                    updateFormProgress();
+                    
+                    // Real-time validation for email and phone
+                    if (this.type === 'email' || this.type === 'tel') {
+                        validateField(this);
+                    }
+                });
+            });
+        }
+        
+        // Enhanced form submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitButton = document.getElementById('submit-btn');
+            const submitText = submitButton.querySelector('.submit-text');
+            const loadingText = submitButton.querySelector('.loading-text');
+            const formMessage = document.getElementById('form-message');
+            
+            // Validate all fields before submission
+            let isFormValid = true;
+            const allFields = this.querySelectorAll('input, select, textarea');
+            
+            allFields.forEach(field => {
+                if (!validateField(field) && field.hasAttribute('required')) {
+                    isFormValid = false;
+                }
+            });
+            
+            // Check required checkboxes
+            const privacyAgreement = document.getElementById('privacy-agreement');
+            if (!privacyAgreement.checked) {
+                isFormValid = false;
+                const feedback = privacyAgreement.parentElement.parentElement.querySelector('.field-feedback') || 
+                               privacyAgreement.parentElement.parentElement;
+                feedback.style.color = '#fca5a5';
+                feedback.textContent = 'You must agree to the privacy policy to continue';
+            }
+            
+            if (!isFormValid) {
+                formMessage.className = 'p-4 rounded-lg text-center font-medium bg-red-500/20 text-red-100 border border-red-400/30';
+                formMessage.textContent = 'Please fill in all required fields correctly before submitting.';
+                formMessage.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    formMessage.classList.add('hidden');
+                }, 5000);
+                
+                return;
+            }
+            
+            // Show loading state
+            submitText.classList.add('hidden');
+            loadingText.classList.remove('hidden');
+            submitButton.disabled = true;
+            
+            // Collect comprehensive form data
+            const formData = new FormData(this);
+            const services = formData.getAll('services[]');
+            
+            const data = {
+                personalInfo: {
+                    firstName: formData.get('first-name'),
+                    lastName: formData.get('last-name'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    company: formData.get('company')
+                },
+                projectInfo: {
+                    type: formData.get('project-type'),
+                    budget: formData.get('budget'),
+                    timeline: formData.get('timeline'),
+                    industry: formData.get('industry')
+                },
+                projectDetails: {
+                    description: formData.get('message'),
+                    services: services,
+                    inspiration: formData.get('inspiration')
+                },
+                communication: {
+                    preferredMethod: formData.get('contact-method'),
+                    bestTime: formData.get('best-time')
+                },
+                agreements: {
+                    privacy: formData.get('privacy-agreement') === 'on',
+                    newsletter: formData.get('newsletter-opt-in') === 'on'
+                }
+            };
+            
+            // Simulate form submission with realistic delay
+            setTimeout(() => {
+                // Reset button state
+                submitText.classList.remove('hidden');
+                loadingText.classList.add('hidden');
+                submitButton.disabled = false;
+                
+                // Show detailed success message
+                const fullName = `${data.personalInfo.firstName} ${data.personalInfo.lastName}`;
+                const projectType = data.projectInfo.type || 'your project';
+                
+                formMessage.className = 'p-4 rounded-lg text-center font-medium bg-green-500/20 text-green-100 border border-green-400/30';
+                formMessage.innerHTML = `
+                    <div class="flex items-center justify-center mb-2">
+                        <span class="text-2xl mr-2">🎉</span>
+                        <span class="font-bold">Message Sent Successfully!</span>
+                    </div>
+                    <p class="text-sm">
+                        Thank you, ${fullName}! I've received your ${projectType} inquiry and will respond within 2-4 hours. 
+                        ${data.agreements.newsletter ? 'You\'ve also been added to my design newsletter!' : ''}
+                    </p>
+                `;
+                formMessage.classList.remove('hidden');
+                
+                // Reset form and progress
+                this.reset();
+                updateFormProgress();
+                
+                // Reset custom inputs
+                document.querySelectorAll('.checkbox-custom').forEach(box => {
+                    box.classList.remove('bg-white/30', 'border-white');
+                    box.querySelector('.checkmark').classList.add('hidden');
+                });
+                
+                document.querySelectorAll('.radio-custom').forEach(radio => {
+                    radio.classList.remove('bg-white/30', 'border-white');
+                    radio.querySelector('.radio-dot').classList.add('opacity-0');
+                });
+                
+                // Set default radio selection
+                document.querySelector('input[name="contact-method"][value="email"]').checked = true;
+                document.querySelector('input[name="contact-method"][value="email"]').dispatchEvent(new Event('change'));
+                
+                // Reset field styling
+                document.querySelectorAll('#contact-form input, #contact-form select, #contact-form textarea').forEach(field => {
+                    field.classList.remove('border-red-400', 'border-green-400');
+                    const feedback = field.parentElement.querySelector('.field-feedback');
+                    if (feedback) {
+                        feedback.className = 'field-feedback text-sm mt-1 opacity-0 transition-opacity';
+                        feedback.textContent = '';
+                    }
+                });
+                
+                // Reset character counter
+                document.getElementById('char-count').textContent = '0';
+                
+                // Hide message after 8 seconds
+                setTimeout(() => {
+                    formMessage.classList.add('hidden');
+                }, 8000);
+                
+                console.log('Enhanced form submitted with data:', data);
+                
+            }, 2500);
+        });
+        
+        // Initialize enhanced form features
+        function initializeEnhancedForm() {
+            setupCustomInputs();
+            setupFormListeners();
+            updateFormProgress();
+            
+            // Set initial radio button state
+            document.querySelector('input[name="contact-method"][value="email"]').dispatchEvent(new Event('change'));
+        }
+        
+        // Call initialization when DOM is ready
+        document.addEventListener('DOMContentLoaded', initializeEnhancedForm);
+
+        // Service button functionality
+        document.querySelectorAll('.service-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const serviceCard = this.closest('.service-card');
+                const serviceName = serviceCard.querySelector('h3').textContent;
+                const servicePrice = serviceCard.querySelector('.text-2xl.font-bold').textContent;
+                
+                if (this.textContent.trim() === 'Book Call') {
+                    alert(`Booking consultation call for ${serviceName}. This would open a calendar booking system!`);
+                } else {
+                    alert(`Getting quote for ${serviceName} (${servicePrice}). This would open a detailed quote form or redirect to the contact section with pre-filled service information.`);
+                }
+            });
+        });
+
+        // Initialize everything when page loads
+        window.addEventListener('load', function() {
+            document.body.classList.add('loaded');
+            initializePortfolioData();
+            filterPortfolio();
+        });
+
+        // Scroll progress indicator
+        function updateScrollProgress() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            
+            let progressBar = document.getElementById('scroll-progress');
+            if (!progressBar) {
+                progressBar = document.createElement('div');
+                progressBar.id = 'scroll-progress';
+                progressBar.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: ${scrollPercent}%;
+                    height: 4px;
+                    background: linear-gradient(90deg, #667eea, #764ba2);
+                    z-index: 9999;
+                    transition: width 0.1s ease;
+                `;
+                document.body.appendChild(progressBar);
+            } else {
+                progressBar.style.width = scrollPercent + '%';
+            }
+        }
+
+        window.addEventListener('scroll', updateScrollProgress);
+
+        // Footer functionality
+        
+        // Newsletter subscription
+        document.getElementById('newsletter-subscribe').addEventListener('click', function() {
+            const emailInput = document.getElementById('newsletter-email');
+            const email = emailInput.value.trim();
+            
+            if (!email) {
+                alert('Please enter your email address!');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                alert('Please enter a valid email address!');
+                return;
+            }
+            
+            // Simulate subscription
+            this.textContent = 'Subscribing...';
+            this.disabled = true;
+            
+            setTimeout(() => {
+                alert(`Thank you for subscribing! Welcome to our design newsletter. You'll receive weekly tips and updates at ${email}`);
+                emailInput.value = '';
+                this.textContent = 'Subscribe';
+                this.disabled = false;
+            }, 1500);
+        });
+        
+        // Allow Enter key for newsletter subscription
+        document.getElementById('newsletter-email').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('newsletter-subscribe').click();
+            }
+        });
+        
+        // Email validation helper
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        // Testimonial carousel
+        let currentTestimonial = 0;
+        const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+        const testimonialDots = document.querySelectorAll('.testimonial-dot');
+        
+        function showTestimonial(index) {
+            // Hide all slides
+            testimonialSlides.forEach(slide => {
+                slide.classList.add('hidden');
+                slide.classList.remove('active');
+            });
+            
+            // Update dots
+            testimonialDots.forEach(dot => {
+                dot.classList.remove('bg-purple-600');
+                dot.classList.add('bg-gray-600');
+            });
+            
+            // Show current slide
+            testimonialSlides[index].classList.remove('hidden');
+            testimonialSlides[index].classList.add('active');
+            testimonialDots[index].classList.remove('bg-gray-600');
+            testimonialDots[index].classList.add('bg-purple-600');
+            
+            currentTestimonial = index;
+        }
+        
+        // Testimonial dot click handlers
+        testimonialDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showTestimonial(index);
+            });
+        });
+        
+        // Auto-rotate testimonials
+        setInterval(() => {
+            const nextIndex = (currentTestimonial + 1) % testimonialSlides.length;
+            showTestimonial(nextIndex);
+        }, 5000);
+        
+        // Social media link interactions
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const platform = this.getAttribute('title');
+                alert(`This would open Sarah's ${platform} profile in a new tab!`);
+            });
+        });
+        
+        // Footer link smooth scrolling
+        document.querySelectorAll('.footer-link[href^="#"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Back to top button
+        document.getElementById('back-to-top').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Show/hide back to top button based on scroll position
+        window.addEventListener('scroll', function() {
+            const backToTopBtn = document.getElementById('back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTopBtn.style.opacity = '1';
+                backToTopBtn.style.transform = 'scale(1)';
+            } else {
+                backToTopBtn.style.opacity = '0.7';
+                backToTopBtn.style.transform = 'scale(0.9)';
+            }
+        });
+        
+        // Footer service links
+        document.querySelectorAll('.footer-link[href="#"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const serviceName = this.textContent.trim();
+                alert(`Learn more about ${serviceName} services! This would typically link to a dedicated service page with pricing, examples, and booking options.`);
+            });
+        });
+        
+        // Footer legal links
+        const legalLinks = ['Privacy Policy', 'Terms of Service', 'Cookie Policy', 'Sitemap'];
+        document.querySelectorAll('footer a').forEach(link => {
+            if (legalLinks.includes(link.textContent.trim())) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const linkText = this.textContent.trim();
+                    alert(`Opening ${linkText} page. This would contain the legal information and policies for the website.`);
+                });
+            }
+        });
+    </script>
+    <script>
+            (function(){function c(){var b=a.contentDocument||a.contentWindow.document;
+            if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9711541da24bcc07',t:'MTc1NTUxOTI0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}
+            if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);
+            if('loading'!==document.readyState)c();
+            else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);
+            else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();
+    </script>
+</body>
+</html>
